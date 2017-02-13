@@ -21,9 +21,9 @@ project/plugins/project/
 # Scala-IDE specific
 .scala_dependencies
 .worksheet
-.cache
-.cache_main
+*.cache
+*.cache_main
 
 # Others
-.class
+*.class
 /bin/
