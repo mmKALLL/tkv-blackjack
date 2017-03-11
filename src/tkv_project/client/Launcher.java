@@ -15,7 +15,7 @@ public class Launcher {
 		// TODO
 		
 		// It is important that the following steps are in the following order.
-		controller = new Controller();
+		controller = new Controller(UI, networkManager);
 		UI = new TextUI(controller);
 		
 		// Build the SocketAddress and networkManager
@@ -33,7 +33,7 @@ public class Launcher {
 			}
 		}
 		
-		networkManager.start();
+		networkManager.start(); // starts networkManager.run() in a separate thread
 		UI.startGame();
 		
 	}

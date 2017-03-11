@@ -13,9 +13,10 @@ class NetworkManager extends Thread {
     
     private Socket serverConnection;
     private BufferedReader in;
+    private Controller controller;
     
-    protected NetworkManager(InetSocketAddress sockaddr) {
-        /* initialize socket into ipaddr, in port x */
+    protected NetworkManager(Controller control, InetSocketAddress sockaddr) {
+        this.controller = control;
         serverConnection = new Socket(sockaddr.getAddress(), sockaddr.getPort());
         in = new BufferedReader(new InputStreamReader(serverConnection.getInputStream()));
     }
@@ -29,10 +30,10 @@ class NetworkManager extends Thread {
         // TODO
     }
     
-    public void run() {
-        // Creating class should call NetworkManagerInstance.start() to execute this in a new thread.
+    protected void run() {
         // Wait for messages, etc...
         
+        // TODO: Send a message to server and get the game's status. Then call controller.initializeGameState().
     }
     
 }

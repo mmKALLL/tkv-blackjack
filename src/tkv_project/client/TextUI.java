@@ -19,15 +19,21 @@ class TextUI {
     }
     
     protected void startGame() {
-        System.out.println("Initializing game... Please wait...");
-        while (!controller.gameStateBuilt) {
+        System.out.print("\nInitializing game... Please wait...");
+        
+        long startTime = System.currentTimeMillis();
+        while (!controller.gameStateBuilt | (System.currentTimeMillis() - startTime) > controller.INIT_TIMEOUT) {
             try {
                 Thread.sleep(1000);
             } catch(InterruptedException e) {
                 Thread.currentThread().interrupt();
                 this.handleException(e);
             }
+            System.out.print(".");
         }
+        
+        System.out.println();
+        printGameScreen();
     }
     
     private void printGameScreen() {
@@ -36,7 +42,7 @@ class TextUI {
     }
     
     
-    /* USER-FACING EXCEPTION HANDLING */
+    /* USER-FACING ERROR MESSAGE PRINTING */
     
     protected static void handleException(UnknownHostException e) {
         System.out.println("The host you specified could not be found. Please double-check the IP address or hostname.");

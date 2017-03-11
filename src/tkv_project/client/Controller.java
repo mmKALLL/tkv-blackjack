@@ -3,17 +3,21 @@ package tkv_project.client;
 class BlackjackController {
     
     public static final String VERSION = "0.1";
+    public static final int INIT_TIMEOUT = "10000" // milliseconds
     public static final boolean DEBUG = true;
     
-    private static String[][] gameState;
-    protected static boolean gameStateBuilt = false;
+    private TextUI UI;
+    private NetworkManager networkManager;
+    private String[][] gameState;
+    protected boolean gameStateBuilt = false;
     
     
-    protected BlackjackController() {
-        
+    protected BlackjackController(TextUI ui, NetworkManager netManager) {
+        this.UI = ui;
+        this.networkManager = netManager;
     }
     
-    void initializeGameState() {
+    void initializeGameState()/*arguments*/ {
         // initialize gameState depending on server's maximum player amount, etc
         
         // ...
@@ -21,8 +25,13 @@ class BlackjackController {
         gameStateBuilt = true;
     }
     
+    // Called whenerver server has sent an update that was read by NetworkManager.
+    void updateGameState() {
+        // TODO: Update gameState, tell UI to print the game screen.
+    }
+    
     protected void playHit() {
-        // Player hits, do something with NetworkManager
+        // TODO: Player hits, do something with NetworkManager
         
     }
     
