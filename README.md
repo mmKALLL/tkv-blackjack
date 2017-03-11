@@ -1,8 +1,8 @@
 # tkv-project
 
-A simple multiplayer game made for the ELEC-C7241 - Computer Networks course project by Esa Koskinen and Felipe Gonzalez. Still a work in progress.
+A simple online multiplayer Blackjack game made for the ELEC-C7241 - Computer Networks (5 cr) course project by Esa Koskinen and Felipe Gonzalez.
 
-Clean with `rm -r *.class`, compile with `javac *.java`, and run with `java Launcher`.
+When in project's root directory, clean with `rm -r bin/*`, compile with `javac -d bin src/tkv_project/*/*.java`, and run with `cd bin; java tkv_project/client/Launcher; cd ..`.
 
 All rights reserved.
 

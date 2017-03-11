@@ -1,3 +1,5 @@
+package tkv_project.client;
+
 public class Hello {
 	String message;
 	public Hello(String in) {
