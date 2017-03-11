@@ -27,7 +27,7 @@ public class Launcher {
 				InetSocketAddress sockaddr = new InetSocketAddress(
 						InetAddress.getByName(serverDetails.split(",")[0]),
 						Integer.parseInt(serverDetails.split(",")[1]));
-				networkManager = new networkManager(sockaddr);
+				networkManager = new NetworkManager(controller, sockaddr);
 				ok = true;
 			} catch (UnknownHostException e) {
 				UI.handleException(e); // Not very nice to UI devs; limits flexibility

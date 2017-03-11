@@ -2,7 +2,7 @@ package tkv_project.client;
 
 class BlackjackController {
     
-    public static final String VERSION = "0.1";
+    public static final String CLIENT_VERSION = "0.4";
     public static final int INIT_TIMEOUT = 10000; // milliseconds
     public static final boolean DEBUG = true;
     
@@ -43,11 +43,12 @@ class BlackjackController {
     // e.g. "", "6s", "Jh", "As", "5s5c", "9cQhAs5d", "9c9c9c9c9c9c9c".
     protected String getCurrentPlayerCards() {
         
+        return "BlackjackController.getCurrentPlayerCards is unimplemented.";
     }
     
     // An array, where in index [0] is the current player's cards, and the other players' after that.
     protected String[] getAllPlayerCards() {
-        
+        return (String[]) {"BlackjackController.getAllPlayerCards is unimplemented."}
     }
     
     // No assumptions can be made on the game state's format at this point.

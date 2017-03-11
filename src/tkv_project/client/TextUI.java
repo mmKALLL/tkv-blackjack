@@ -12,7 +12,7 @@ class TextUI {
     
     protected TextUI(BlackjackController control) {
         controller = control;
-        System.out.println("Welcome to tkv-blackjack client, version " + controller.VERSION + "!");
+        System.out.println("Welcome to tkv-blackjack client, version " + controller.CLIENT_VERSION + "!");
     }
     
     // IP address/hostname and port, separated by a single comma.

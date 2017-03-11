@@ -30,7 +30,7 @@ class NetworkManager extends Thread {
         // TODO
     }
     
-    protected void run() {
+    public void run() {
         // Wait for messages, etc...
         
         // TODO: Send a message to server and get the game's status. Then call controller.initializeGameState().
