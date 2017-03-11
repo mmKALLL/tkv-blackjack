@@ -24,6 +24,9 @@ public class Launcher {
 		boolean ok = false;
 		while(!ok) {
 			String serverDetails = UI.askServerDetails();
+			if (controller.DEBUG) {
+				System.out.println("Launcher.serverDetails: " + serverDetails);
+			}
 			try {
 				InetSocketAddress sockaddr = new InetSocketAddress(
 						InetAddress.getByName(serverDetails.split(",")[0]),

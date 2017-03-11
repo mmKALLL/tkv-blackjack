@@ -8,7 +8,7 @@ import java.lang.InterruptedException;
 
 class TextUI extends UserInterface {
     
-    private BlackjackController controller;
+    private static BlackjackController controller;
     private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     
     protected TextUI(BlackjackController control) {
@@ -18,21 +18,21 @@ class TextUI extends UserInterface {
     
     // returns IP address/hostname and port, separated by a single comma.
     protected String askServerDetails() {
-        String hostname = " ";
-        String port = " ";
+        String hostname = "";
+        String port = "";
         
         boolean ok = false;
         while (!ok) {
             try {
                 System.out.println("Input server hostname or IP address (default: " + controller.DEFAULT_HOSTNAME + ").");
                 hostname = in.readLine();
-                if (hostname == "") {
+                if (hostname.trim().length() == 0) {
                     hostname = controller.DEFAULT_HOSTNAME;
                 }
                 
                 System.out.println("Input server port (default: " + controller.DEFAULT_PORT + ").");
                 port = in.readLine();
-                if (port == "") {
+                if (port.trim().length() == 0) {
                     port = controller.DEFAULT_PORT;
                 }
                 
@@ -49,7 +49,7 @@ class TextUI extends UserInterface {
         System.out.print("\nInitializing game... Please wait...");
         
         long startTime = System.currentTimeMillis();
-        while (!controller.gameStateBuilt | (System.currentTimeMillis() - startTime) > controller.GAMESTATE_INIT_TIMEOUT) {
+        while (!controller.gameStateBuilt && (System.currentTimeMillis() - startTime) > controller.GAMESTATE_INIT_TIMEOUT) {
             try {
                 Thread.sleep(1000);
             } catch(InterruptedException e) {
@@ -90,11 +90,11 @@ class TextUI extends UserInterface {
     }
     
     protected void handleException(Exception e) {
-        System.out.println("Unknown exception of type " + e.getClass().getSimpleName() + " encountered. Please report this to the developers, if possible.");
-        System.out.println();
+        System.out.println("Unknown exception of type " + e.getClass().getSimpleName() + " encountered. Please report this to the developers, if possible.\n");
         if (controller.DEBUG) {
             e.printStackTrace();
         }
+        System.out.print("\n\n");
     }
     
     
