@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.lang.InterruptedException;
 
-class TextUI {
+class TextUI implements UserInterface {
     
     private static BlackjackController controller;
     private static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -18,16 +18,24 @@ class TextUI {
     
     // IP address/hostname and port, separated by a single comma.
     protected String askServerDetails() {
-        String hostname = controller.DEFAULT_HOSTNAME;
-        String port = controller.DEFAULT_PORT;
+        String hostname = " ";
+        String port = " ";
         
         boolean ok = false;
         while (!ok) {
             try {
                 System.out.println("Input server hostname or IP address (default: " + controller.DEFAULT_HOSTNAME + ").");
                 hostname = in.readLine();
+                if (hostname == "") {
+                    hostname = controller.DEFAULT_HOSTNAME;
+                }
+                
                 System.out.println("Input server port (default: " + controller.DEFAULT_PORT + ").");
                 port = in.readLine();
+                if (port == "") {
+                    port = controller.DEFAULT_PORT;
+                }
+                
                 ok = true;
             } catch (IOException e) {
                 System.out.println("That is not a valid value; please try again.");
@@ -69,8 +77,16 @@ class TextUI {
     
     protected static void handleException(InterruptedException e) {
         if (controller.DEBUG) {
-            System.out.println("Thread.sleep() was interrupted.");
+            System.out.println("Thread.sleep() was interrupted.\n\n");
+            e.printStackTrace();
         }
+    }
+    
+    protected static void handleException(IOException e) {
+        System.out.println("It appears the server has disconnected.");
+        // TODO: Add functionality to join another game; essentially re-launch the program.
+        // See the "Basically, you can't. At least not in a reliable way." answer at http://stackoverflow.com/questions/4159802/how-can-i-restart-a-java-application
+        System.exit(0);
     }
     
     protected static void handleException(Exception e) {

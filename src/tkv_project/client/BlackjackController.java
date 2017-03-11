@@ -9,13 +9,16 @@ class BlackjackController {
     public static final String DEFAULT_HOSTNAME = "localhost";
     public static final String DEFAULT_PORT = "47855";
     
-    private TextUI UI;
+    private UserInterface UI;
     private NetworkManager networkManager;
     private String[][] gameState;
     protected boolean gameStateBuilt = false;
     
+    protected BlackjackController() {
+        
+    }
     
-    protected BlackjackController(TextUI ui, NetworkManager netManager) {
+    protected BlackjackController(UserInterface ui, NetworkManager netManager) {
         this.UI = ui;
         this.networkManager = netManager;
     }
@@ -31,6 +34,14 @@ class BlackjackController {
     // Called whenerver server has sent an update that was read by NetworkManager.
     void updateGameState() {
         // TODO: Update gameState, tell UI to print the game screen.
+    }
+    
+    protected void handleServerDisconnect(Exception e) {
+        if (this.DEBUG) {
+            e.printStackTrace();
+        } else {
+            UI.handleException(e);
+        }
     }
     
     protected void playHit() {
@@ -58,6 +69,14 @@ class BlackjackController {
     // No assumptions can be made on the game state's format at this point.
     protected String[][] getGameState() {
         return gameState;
+    }
+    
+    void setUI(UserInterface ui) {
+        this.UI = ui;
+    }
+
+    void setNetworkManager(NetworkManager netManager) {
+        this.networkManager = netManager;
     }
     
 }

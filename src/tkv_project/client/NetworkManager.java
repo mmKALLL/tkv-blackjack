@@ -4,6 +4,7 @@ import java.net.Socket;
 import java.net.InetSocketAddress;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.IOException;
 
 /**
     NetworkManager handles the connectivity of a single client to the game server,
@@ -17,8 +18,12 @@ class NetworkManager extends Thread {
     
     protected NetworkManager(BlackjackController control, InetSocketAddress sockaddr) {
         this.controller = control;
-        serverConnection = new Socket(sockaddr.getAddress(), sockaddr.getPort());
-        in = new BufferedReader(new InputStreamReader(serverConnection.getInputStream()));
+        try {
+            serverConnection = new Socket(sockaddr.getAddress(), sockaddr.getPort());
+            in = new BufferedReader(new InputStreamReader(serverConnection.getInputStream()));
+        } catch (IOException e) {
+            controller.handleServerDisconnect(e);
+        }
     }
     
     private void receiveMessage() {

@@ -6,7 +6,7 @@ import java.net.UnknownHostException;
 
 public class Launcher {
 	
-	private static TextUI UI;
+	private static UserInterface UI;
 	private static BlackjackController controller;
 	private static NetworkManager networkManager;
 	
@@ -16,8 +16,9 @@ public class Launcher {
 		// TODO
 		
 		// It is important that the following steps are in the following order.
-		controller = new BlackjackController(UI, networkManager);
+		controller = new BlackjackController();
 		UI = new TextUI(controller);
+		controller.setUI = UI;
 		
 		// Build the SocketAddress and networkManager
 		boolean ok = false;
@@ -34,6 +35,7 @@ public class Launcher {
 			}
 		}
 		
+		controller.setNetworkManager = networkManager;
 		networkManager.start(); // starts networkManager.run() in a separate thread
 		UI.startGame();
 		
