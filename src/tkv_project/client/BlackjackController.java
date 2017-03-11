@@ -24,7 +24,8 @@ class BlackjackController {
     }
     
     void initializeGameState()/*arguments*/ {
-        // initialize gameState depending on server's maximum player amount, etc
+        // TODO: initialize gameState depending on server's maximum player amount, etc
+        // Could also use ArrayList<String>; it might be better actually.
         
         // ...
         

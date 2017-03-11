@@ -68,7 +68,7 @@ class TextUI extends UserInterface {
     }
     
     private void printGameScreen() {
-        /* do a lot of stuff; get players' cards etc from controller, then display them with padding to create columns */
+        // TODO: Do a lot of stuff; get players' cards etc from controller, then display them with padding to create columns.
         
     }
     
