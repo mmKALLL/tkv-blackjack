@@ -6,17 +6,17 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.lang.InterruptedException;
 
-class TextUI implements UserInterface {
+class TextUI extends UserInterface {
     
-    private static BlackjackController controller;
-    private static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    private BlackjackController controller;
+    private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     
     protected TextUI(BlackjackController control) {
         controller = control;
         System.out.println("Welcome to tkv-blackjack client, version " + controller.CLIENT_VERSION + "!");
     }
     
-    // IP address/hostname and port, separated by a single comma.
+    // returns IP address/hostname and port, separated by a single comma.
     protected String askServerDetails() {
         String hostname = " ";
         String port = " ";
@@ -71,25 +71,25 @@ class TextUI implements UserInterface {
     
     /* USER-FACING ERROR MESSAGE PRINTING */
     
-    protected static void handleException(UnknownHostException e) {
+    protected void handleException(UnknownHostException e) {
         System.out.println("The host you specified could not be found. Please double-check the IP address or hostname.");
     }
     
-    protected static void handleException(InterruptedException e) {
+    protected void handleException(InterruptedException e) {
         if (controller.DEBUG) {
             System.out.println("Thread.sleep() was interrupted.\n\n");
             e.printStackTrace();
         }
     }
     
-    protected static void handleException(IOException e) {
+    protected void handleException(IOException e) {
         System.out.println("It appears the server has disconnected.");
         // TODO: Add functionality to join another game; essentially re-launch the program.
         // See the "Basically, you can't. At least not in a reliable way." answer at http://stackoverflow.com/questions/4159802/how-can-i-restart-a-java-application
         System.exit(0);
     }
     
-    protected static void handleException(Exception e) {
+    protected void handleException(Exception e) {
         System.out.println("Unknown exception of type " + e.getClass().getSimpleName() + " encountered. Please report this to the developers, if possible.");
         System.out.println();
         if (controller.DEBUG) {

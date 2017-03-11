@@ -1,12 +1,14 @@
 package tkv_project.client;
 
-public interface UserInterface {
+abstract class UserInterface {
     
-    void startGame();
+    private BlackjackController controller;
     
-    // IP address/hostname and port, separated by a single comma.
-    String askServerDetails();
+    // returns IP address/hostname and port, separated by a single comma.
+    abstract protected String askServerDetails();
+    
+    abstract protected void startGame();
     
     /* USER-FACING ERROR HANDLING */
-    void handleException(Exception e);
+    abstract protected void handleException(Exception e);
 }

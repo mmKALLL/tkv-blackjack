@@ -18,7 +18,7 @@ public class Launcher {
 		// It is important that the following steps are in the following order.
 		controller = new BlackjackController();
 		UI = new TextUI(controller);
-		controller.setUI = UI;
+		controller.setUI(UI);
 		
 		// Build the SocketAddress and networkManager
 		boolean ok = false;
@@ -35,7 +35,7 @@ public class Launcher {
 			}
 		}
 		
-		controller.setNetworkManager = networkManager;
+		controller.setNetworkManager(networkManager);
 		networkManager.start(); // starts networkManager.run() in a separate thread
 		UI.startGame();
 		
