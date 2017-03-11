@@ -2,11 +2,12 @@ package tkv_project.client;
 
 import java.net.InetSocketAddress;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class Launcher {
 	
 	private static TextUI UI;
-	private static Controller controller;
+	private static BlackjackController controller;
 	private static NetworkManager networkManager;
 	
 	public static void main(String[] args) {
@@ -15,7 +16,7 @@ public class Launcher {
 		// TODO
 		
 		// It is important that the following steps are in the following order.
-		controller = new Controller(UI, networkManager);
+		controller = new BlackjackController(UI, networkManager);
 		UI = new TextUI(controller);
 		
 		// Build the SocketAddress and networkManager

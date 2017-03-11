@@ -2,13 +2,15 @@ package tkv_project.client;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.UnknownHostException;
+import java.lang.InterruptedException;
 
 class TextUI {
     
-    private static Controller controller;
+    private static BlackjackController controller;
     private static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
     
-    protected TextUI(Controller control) {
+    protected TextUI(BlackjackController control) {
         controller = control;
         System.out.println("Welcome to tkv-blackjack client, version " + controller.VERSION + "!");
     }
@@ -55,7 +57,7 @@ class TextUI {
     }
     
     protected static void handleException(Exception e) {
-        System.out.println("Unknown exception of type " + e.getClass().getSimpleName() + " encountered. Please report this to the developers, if possible.")
+        System.out.println("Unknown exception of type " + e.getClass().getSimpleName() + " encountered. Please report this to the developers, if possible.");
         System.out.println();
         if (controller.DEBUG) {
             e.printStackTrace();

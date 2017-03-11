@@ -13,15 +13,15 @@ class NetworkManager extends Thread {
     
     private Socket serverConnection;
     private BufferedReader in;
-    private Controller controller;
+    private BlackjackController controller;
     
-    protected NetworkManager(Controller control, InetSocketAddress sockaddr) {
+    protected NetworkManager(BlackjackController control, InetSocketAddress sockaddr) {
         this.controller = control;
         serverConnection = new Socket(sockaddr.getAddress(), sockaddr.getPort());
         in = new BufferedReader(new InputStreamReader(serverConnection.getInputStream()));
     }
     
-    private receiveMessage() {
+    private void receiveMessage() {
         // TODO
     }
     

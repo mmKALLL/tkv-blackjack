@@ -2,7 +2,7 @@
 
 A simple online multiplayer Blackjack game made for the ELEC-C7241 - Computer Networks (5 cr) course project by Esa Koskinen and Felipe Gonzalez.
 
-When in project's root directory, clean with `rm -r bin/*`, compile with `javac -d bin src/tkv_project/*/*.java`, and run with `cd bin; java tkv_project/client/Launcher; cd ..`.
+When in project's root directory, you can use . ./run.sh to compile and run the application. You can also manually clean with `rm -r bin/*`, compile with `javac -d bin src/tkv_project/*/*.java`, and run with `cd bin; java tkv_project/client/Launcher; cd ..`.
 
 All rights reserved.
 
