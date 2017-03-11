@@ -18,7 +18,7 @@ public class Launcher {
 		controller = new Controller();
 		UI = new TextUI(controller);
 		
-		// Build the SocketAddress
+		// Build the SocketAddress and networkManager
 		boolean ok = false;
 		while(!ok) {
 			String serverDetails = UI.askServerDetails();
@@ -26,10 +26,16 @@ public class Launcher {
 				InetSocketAddress sockaddr = new InetSocketAddress(
 						InetAddress.getByName(serverDetails.split(",")[0]),
 						Integer.parseInt(serverDetails.split(",")[1]));
+				networkManager = new networkManager(sockaddr);
+				ok = true;
 			} catch (UnknownHostException e) {
 				UI.handleException(e); // Not very nice to UI devs; limits flexibility
 			}
 		}
+		
+		networkManager.start();
+		UI.startGame();
+		
 	}
 	
 }
