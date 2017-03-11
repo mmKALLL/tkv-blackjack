@@ -1,7 +1,7 @@
 package tkv_project.client;
 
 import java.net.Socket;
-import java.net.SocketAddress;
+import java.net.InetSocketAddress;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -14,7 +14,7 @@ class NetworkManager extends Thread {
     private Socket serverConnection;
     private BufferedReader in;
     
-    public NetworkManager(SocketAddress sockaddr) {
+    protected NetworkManager(InetSocketAddress sockaddr) {
         /* initialize socket into ipaddr, in port x */
         serverConnection = new Socket(sockaddr.getAddress(), sockaddr.getPort());
         in = new BufferedReader(new InputStreamReader(serverConnection.getInputStream()));
