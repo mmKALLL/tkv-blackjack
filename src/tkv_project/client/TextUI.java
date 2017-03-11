@@ -2,6 +2,7 @@ package tkv_project.client;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.lang.InterruptedException;
 
@@ -17,14 +18,30 @@ class TextUI {
     
     // IP address/hostname and port, separated by a single comma.
     protected String askServerDetails() {
+        String hostname = controller.DEFAULT_HOSTNAME;
+        String port = controller.DEFAULT_PORT;
         
+        boolean ok = false;
+        while (!ok) {
+            try {
+                System.out.println("Input server hostname or IP address (default: " + controller.DEFAULT_HOSTNAME + ").");
+                hostname = in.readLine();
+                System.out.println("Input server port (default: " + controller.DEFAULT_PORT + ").");
+                port = in.readLine();
+                ok = true;
+            } catch (IOException e) {
+                System.out.println("That is not a valid value; please try again.");
+            }
+        }
+        
+        return hostname + "," + port;
     }
     
     protected void startGame() {
         System.out.print("\nInitializing game... Please wait...");
         
         long startTime = System.currentTimeMillis();
-        while (!controller.gameStateBuilt | (System.currentTimeMillis() - startTime) > controller.INIT_TIMEOUT) {
+        while (!controller.gameStateBuilt | (System.currentTimeMillis() - startTime) > controller.GAMESTATE_INIT_TIMEOUT) {
             try {
                 Thread.sleep(1000);
             } catch(InterruptedException e) {

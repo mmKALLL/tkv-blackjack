@@ -1,6 +1,6 @@
 package tkv_project.server;
 
-static class ServerConstants {
+class ServerConstants {
     
     public static final String SERVER_VERSION = "0.1";
     
