@@ -15,7 +15,7 @@ public class Launcher {
 		// Parse arguments
 		// TODO
 		
-		// It is important that the following steps are in the following order.
+		// It is important that the rest of the launcher is in the following order.
 		controller = new BlackjackController();
 		UI = new TextUI(controller);
 		controller.setUI(UI);
@@ -42,6 +42,10 @@ public class Launcher {
 		networkManager.start(); // starts networkManager.run() in a separate thread
 		UI.startGame();
 		
+	}
+	
+	static void restart() {
+		// TODO: Clean things up and call main().
 	}
 	
 }
