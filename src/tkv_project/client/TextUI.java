@@ -59,17 +59,33 @@ class TextUI extends UserInterface {
             }
             System.out.print(".");
         }
+        System.out.println();
         
         if ((System.currentTimeMillis() - startTime) > controller.GAMESTATE_INIT_TIMEOUT) {
             System.out.println("\nThe game server did not respond. Please try again later, or join to another server. The program will now exit.");
         }
         
+        System.out.println("Game initialized successfully. Please enter a username:");
+        contorller.setUserName(in.readLine());
+        
+        System.out.println("\nWaiting for a new round to start... Hit ctrl-c to exit if you get bored...");
+        while (!controller.canPlay) {
+            try {
+                Thread.sleep(1000);
+            } catch(InterruptedException e) {
+                Thread.currentThread().interrupt();
+                this.handleException(e);
+            }
+            System.out.print(".");
+        }
         System.out.println();
+        
+        System.out.println("Game started!");
         printGameScreen();
     }
     
     private void printGameScreen() {
-        // TODO: Do a lot of stuff; get players' cards etc from controller, then display them with padding to create columns.
+        // TODO: Do a lot of stuff; get players' cards etc from controller, then display them with padding to create columns. Finally ask for player's desired action.
         
     }
     

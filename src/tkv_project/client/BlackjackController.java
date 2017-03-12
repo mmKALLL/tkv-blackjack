@@ -13,6 +13,9 @@ class BlackjackController {
     private NetworkManager networkManager;
     private String[][] gameState;
     protected boolean gameStateBuilt = false;
+    protected boolean canPlay = false;
+    
+    private String username = "Player 1";
     
     protected BlackjackController() {
         
@@ -35,6 +38,14 @@ class BlackjackController {
     // Called whenerver server has sent an update that was read by NetworkManager.
     void updateGameState() {
         // TODO: Update gameState, tell UI to print the game screen.
+    }
+    
+    // Called by NetworkManager
+    void startNewRound() {
+        for (int i; i < gameState.length(); i++) {
+            gameState[i] = {};
+        }
+        this.canPlay = true;
     }
     
     protected void handleServerConnectionFailure(Exception e) {
@@ -70,6 +81,10 @@ class BlackjackController {
     // TODO: No assumptions can be made on the game state's format at this point.
     protected String[][] getGameState() {
         return gameState;
+    }
+    
+    void setUserName(String name) {
+        this.username = name;
     }
     
     void setUI(UserInterface ui) {
