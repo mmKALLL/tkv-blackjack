@@ -40,9 +40,8 @@ class BlackjackController {
     protected void handleServerDisconnect(Exception e) {
         if (this.DEBUG) {
             e.printStackTrace();
-        } else {
-            UI.handleException(e);
         }
+        UI.handleException(e);
     }
     
     protected void playHit() {
@@ -57,17 +56,18 @@ class BlackjackController {
     // A non-separated string where, for each card, there is a card number/symbol followed by suit symbol.
     // e.g. "", "6s", "Jh", "As", "5s5c", "9cQhAs5d", "9c9c9c9c9c9c9c".
     protected String getCurrentPlayerCards() {
-        
+        // TODO
         return "BlackjackController.getCurrentPlayerCards is unimplemented.";
     }
     
     // An array, where in index [0] is the current player's cards, and the other players' after that.
     protected String[] getAllPlayerCards() {
+        // TODO
         String[] result = {"BlackjackController.getAllPlayerCards is unimplemented."};
         return result;
     }
     
-    // No assumptions can be made on the game state's format at this point.
+    // TODO: No assumptions can be made on the game state's format at this point.
     protected String[][] getGameState() {
         return gameState;
     }
