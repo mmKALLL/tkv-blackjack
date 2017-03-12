@@ -76,38 +76,43 @@ class TextUI extends UserInterface {
     
     /* USER-FACING ERROR MESSAGE PRINTING */
     
-    protected void handleException(UnknownHostException e) {
-        System.out.println("The host you specified could not be found. Please double-check the IP address or hostname.");
-    }
-    
-    protected void handleException(InterruptedException e) {
-        if (controller.DEBUG) {
-            System.out.println("Thread.sleep() was interrupted.\n\n");
-            e.printStackTrace();
+    protected void handleException(Exception ex) {
+        try {
+            throw ex;
+        }
+        
+        catch (UnknownHostException e) {
+            System.out.println("The host you specified could not be found. Please double-check the IP address or hostname.");
+        }
+        
+        catch (InterruptedException e) {
+            if (controller.DEBUG) {
+                System.out.println("Thread.sleep() was interrupted.\n\n");
+                e.printStackTrace();
+            }
+        }
+        
+        catch (ConnectException e) {
+            System.out.println("It appears the server has refused the connection attempt. Please try again later or switch to another server. The program will now exit.");
+            // TODO: Add functionality to join another game; essentially re-launch the program.
+            // See the "Basically, you can't. At least not in a reliable way." answer at http://stackoverflow.com/questions/4159802/how-can-i-restart-a-java-application
+            System.exit(0);
+        }
+        
+        catch (IOException e) {
+            System.out.println("It appears the server has disconnected.");
+            // TODO: Add functionality to join another game; essentially re-launch the program.
+            // See the "Basically, you can't. At least not in a reliable way." answer at http://stackoverflow.com/questions/4159802/how-can-i-restart-a-java-application
+            System.exit(0);
+        }
+        
+        catch (Exception e) {
+            System.out.println("Unknown exception of type " + e.getClass().getSimpleName() + " encountered. Please report this to the developers, if possible.\n");
+            if (controller.DEBUG) {
+                e.printStackTrace();
+            }
+            System.out.print("\n\n");
         }
     }
-    
-    protected void handleException(IOException e) {
-        System.out.println("It appears the server has disconnected.");
-        // TODO: Add functionality to join another game; essentially re-launch the program.
-        // See the "Basically, you can't. At least not in a reliable way." answer at http://stackoverflow.com/questions/4159802/how-can-i-restart-a-java-application
-        System.exit(0);
-    }
-    
-    protected void handleException(ConnectException e) {
-        System.out.println("It appears the server has refused the connection attempt. Please try again later or switch to another server. The program will now exit.");
-        // TODO: Add functionality to join another game; essentially re-launch the program.
-        // See the "Basically, you can't. At least not in a reliable way." answer at http://stackoverflow.com/questions/4159802/how-can-i-restart-a-java-application
-        System.exit(0);
-    }
-    
-    protected void handleException(Exception e) {
-        System.out.println("Unknown exception of type " + e.getClass().getSimpleName() + " encountered. Please report this to the developers, if possible.\n");
-        if (controller.DEBUG) {
-            e.printStackTrace();
-        }
-        System.out.print("\n\n");
-    }
-    
     
 }
