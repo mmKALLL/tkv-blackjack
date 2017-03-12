@@ -22,7 +22,7 @@ class NetworkManager extends Thread {
             serverConnection = new Socket(sockaddr.getAddress(), sockaddr.getPort());
             in = new BufferedReader(new InputStreamReader(serverConnection.getInputStream()));
         } catch (IOException e) {
-            controller.handleServerDisconnect(e);
+            controller.handleServerConnectionFailure(e);
         }
     }
     

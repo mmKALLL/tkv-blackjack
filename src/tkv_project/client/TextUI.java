@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.net.ConnectException;
 import java.lang.InterruptedException;
 
 class TextUI extends UserInterface {
@@ -88,6 +89,13 @@ class TextUI extends UserInterface {
     
     protected void handleException(IOException e) {
         System.out.println("It appears the server has disconnected.");
+        // TODO: Add functionality to join another game; essentially re-launch the program.
+        // See the "Basically, you can't. At least not in a reliable way." answer at http://stackoverflow.com/questions/4159802/how-can-i-restart-a-java-application
+        System.exit(0);
+    }
+    
+    protected void handleException(ConnectException e) {
+        System.out.println("It appears the server has refused the connection attempt. Please try again later or switch to another server. The program will now exit.");
         // TODO: Add functionality to join another game; essentially re-launch the program.
         // See the "Basically, you can't. At least not in a reliable way." answer at http://stackoverflow.com/questions/4159802/how-can-i-restart-a-java-application
         System.exit(0);
