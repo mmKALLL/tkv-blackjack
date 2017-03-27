@@ -41,8 +41,4 @@ public class Launcher {
 		
 	}
 	
-	static void restart() {
-		// TODO: Clean things up and call main().
-	}
-	
 }

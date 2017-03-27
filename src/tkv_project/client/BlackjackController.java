@@ -4,16 +4,19 @@ class BlackjackController {
     
     public static final boolean DEBUG = true;
     
-    public static final String CLIENT_VERSION = "0.5.2";
+    public static final String CLIENT_VERSION = "0.6.0";
     public static final int GAMESTATE_INIT_TIMEOUT = 10000; // milliseconds
     public static final String DEFAULT_HOSTNAME = "localhost";
     public static final String DEFAULT_PORT = "47855";
     
     private UserInterface UI;
     private NetworkManager networkManager;
+
+    // gameState[i][0] = playerID, gameState[i][1] = playerName, gameState[i][2] = cards, gameState[i][3] = money
     private String[][] gameState;
     protected boolean gameStateBuilt = false;
     private int playerID;
+    private String playerName = "";
     
     protected BlackjackController() {
         
@@ -60,7 +63,29 @@ class BlackjackController {
     protected String[][] getGameState() {
         return gameState;
     }
+
+    protected String getThisPlayerName() {
+        return playerName;
+    }
     
+    protected int getThisPlayerMoney() {
+        return money;
+    }
+
+    protected int getNumOfPlayers() {
+        if (this.gameStateBuilt) {
+            if (this.gameState.length >= 2) {
+                int i = 1;
+                while(gameState[i][0] != null && gameState[i][0] != 0 && i < gameState.length) {
+                    i++;
+                }
+                return i - 1;
+            }
+        }
+
+        return 0;
+    }
+
     void setUI(UserInterface ui) {
         this.UI = ui;
     }
