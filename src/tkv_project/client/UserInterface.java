@@ -8,6 +8,8 @@ abstract class UserInterface {
     abstract protected String askServerDetails();
     
     abstract protected void startGame();
+
+    abstract protected void update();
     
     /* USER-FACING ERROR HANDLING */
     abstract protected void handleException(Exception e);

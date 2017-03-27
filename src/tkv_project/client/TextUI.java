@@ -60,15 +60,14 @@ class TextUI extends UserInterface {
             System.out.print(".");
         }
         
-        if ((System.currentTimeMillis() - startTime) > controller.GAMESTATE_INIT_TIMEOUT) {
+        if (!controller.gameStateBuilt && (System.currentTimeMillis() - startTime) > controller.GAMESTATE_INIT_TIMEOUT) {
             System.out.println("\nThe game server did not respond. Please try again later, or join to another server. The program will now exit.");
+            System.exit(0);
         }
         
-        System.out.println();
-        printGameScreen();
     }
     
-    private void printGameScreen() {
+    private void update() {
         // TODO: Do a lot of stuff; get players' cards etc from controller, then display them with padding to create columns.
         
     }

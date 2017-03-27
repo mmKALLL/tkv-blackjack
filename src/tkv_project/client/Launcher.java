@@ -12,9 +12,6 @@ public class Launcher {
 	
 	public static void main(String[] args) {
 		
-		// Parse arguments
-		// TODO
-		
 		// It is important that the rest of the launcher is in the following order.
 		controller = new BlackjackController();
 		UI = new TextUI(controller);

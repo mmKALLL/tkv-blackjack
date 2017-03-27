@@ -13,6 +13,7 @@ class BlackjackController {
     private NetworkManager networkManager;
     private String[][] gameState;
     protected boolean gameStateBuilt = false;
+    private int playerID;
     
     protected BlackjackController() {
         
@@ -23,18 +24,11 @@ class BlackjackController {
         this.networkManager = netManager;
     }
     
-    void initializeGameState()/*arguments*/ {
-        // TODO: initialize gameState depending on server's maximum player amount, etc
-        // Could also use ArrayList<String>; it might be better actually.
-        
-        // ...
-        
-        gameStateBuilt = true;
-    }
-    
     // Called whenerver server has sent an update that was read by NetworkManager.
-    void updateGameState() {
-        // TODO: Update gameState, tell UI to print the game screen.
+    void updateGameState(String[][] newGameState) {
+        gameState = newGameState;
+        gameStateBuilt = true;
+        UI.update();
     }
     
     protected void handleServerConnectionFailure(Exception e) {
@@ -45,29 +39,24 @@ class BlackjackController {
     }
     
     protected void playHit() {
-        // TODO: Player hits, do something with NetworkManager
-        
+        networkManager.sendMessage(playerID + " hit");
     }
     
     protected void playStand() {
-        
+        networkManager.sendMessage(playerID + " stand");   
     }
     
     // A non-separated string where, for each card, there is a card number/symbol followed by suit symbol.
     // e.g. "", "6s", "Jh", "As", "5s5c", "9cQhAs5d", "9c9c9c9c9c9c9c".
-    protected String getCurrentPlayerCards() {
-        // TODO
-        return "BlackjackController.getCurrentPlayerCards is unimplemented.";
+    protected String getThisPlayerCards() {
+        for(String[] player : gameState) {
+            if(player[0] == playerID) {
+                return player[2];
+            }
+        }
+        return "Something went wrong in getThisPlayerCards.";
     }
     
-    // An array, where in index [0] is the current player's cards, and the other players' after that.
-    protected String[] getAllPlayerCards() {
-        // TODO
-        String[] result = {"BlackjackController.getAllPlayerCards is unimplemented."};
-        return result;
-    }
-    
-    // TODO: No assumptions can be made on the game state's format at this point.
     protected String[][] getGameState() {
         return gameState;
     }

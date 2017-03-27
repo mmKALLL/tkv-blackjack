@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-/**
+/*
     NetworkManager handles the connectivity of a single client to the game server,
     and had methods for exchanging messages over the network.
  */
