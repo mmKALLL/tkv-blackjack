@@ -81,7 +81,6 @@ class TextUI extends UserInterface {
     }
     
     private void update() {
-        // TODO: Do a lot of stuff; get players' cards etc from controller, then display them with padding to create columns.
 
         if (this.controller.getThisPlayerName() == "") {
             System.out.println("Please enter a name:");
@@ -98,25 +97,28 @@ class TextUI extends UserInterface {
             }
         }
 
-        System.out.println("The state of the game:");
-        System.out.println();
         System.out.println(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState[0][1]));
         System.out.println(String.format("%-" + this.COLUMN_SIZE + "s", separateCards(controller.getGameState[0][2])));
+
         System.out.println();
+        
         for (int i = 1; i < controller.getNumOfPlayers(); i++) {
             System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState[i][1]));
         }
         System.out.println();
+        
         for (int i = 1; i < controller.getNumOfPlayers(); i++) {
             System.out.print(String.format("Money: %-" + (this.COLUMN_SIZE - 7) + "s", controller.getGameState[i][3]));
         }
         System.out.println();
+        
         for (int i = 1; i < controller.getNumOfPlayers(); i++) {
             System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", separateCards(controller.getGameState[i][2])));
-            //TODO: Divide cards to multiple lines
+            // TODO: Divide cards to multiple lines
         }
         System.out.println();
 
+        // TODO: Indicate current player
     }
     
     
