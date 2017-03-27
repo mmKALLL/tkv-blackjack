@@ -36,7 +36,7 @@ class NetworkManager extends Thread {
     
     void sendMessage(String msg) {
         /* send msg over the socket */
-        serverConnection.
+        this.out.println(msg);
     }
     
     public void run() {
