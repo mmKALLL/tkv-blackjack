@@ -7,6 +7,9 @@ import java.net.UnknownHostException;
 import java.net.ConnectException;
 import java.lang.InterruptedException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class TextUI extends UserInterface {
 
     public static final int COLUMN_SIZE = 24;
@@ -97,24 +100,45 @@ class TextUI extends UserInterface {
             }
         }
 
+        // Print the dealer's name and cards
         System.out.println(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState[0][1]));
         System.out.println(String.format("%-" + this.COLUMN_SIZE + "s", separateCards(controller.getGameState[0][2])));
 
         System.out.println();
         
+        // Print the players' names
         for (int i = 1; i < controller.getNumOfPlayers(); i++) {
             System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState[i][1]));
         }
         System.out.println();
         
+        // Print the players' money
         for (int i = 1; i < controller.getNumOfPlayers(); i++) {
             System.out.print(String.format("Money: %-" + (this.COLUMN_SIZE - 7) + "s", controller.getGameState[i][3]));
         }
         System.out.println();
         
+        // Print the players' first eight cards
+        List<Integer> list = new ArrayList<Integer>();
         for (int i = 1; i < controller.getNumOfPlayers(); i++) {
-            System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", separateCards(controller.getGameState[i][2])));
-            // TODO: Divide cards to multiple lines
+        	String tmp = separateCards(controller.getGameState[i][2]);
+        	if (tmp.length() > this.COLUMN_SIZE) {
+        		tmp = tmp.substring(0, this.COLUMN_SIZE);
+        		list.add(i);
+        	}
+            System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", tmp));
+        }
+        System.out.println();
+
+        // Print a second row of cards if at least one player has over eight cards
+        if (!list.isEmpty()) {
+        	for (int i = 0; i < controller.getNumOfPlayers(); i++) {
+        		if (list.contains(i)) {
+        			System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState[i][2]).substring(this.COLUMN_SIZE));
+        		} else {
+        			System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", ""));
+        		}
+        	}
         }
         System.out.println();
 
