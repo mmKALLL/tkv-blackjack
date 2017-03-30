@@ -12,7 +12,7 @@ class ServerController {
     private String[][] gameState;
     
     public ServerController(ServerConstants servConsts) {
-        // TODO: initialize gameState and stuff
+        // TODO: initialize gameState and any necessary related stuff
         gameState = new String[serverConstants.MAX_PLAYERS_PER_GAME][4];
     }
     
@@ -21,7 +21,7 @@ class ServerController {
     }
     
     protected handleStand() {
-        // TODO: Handle a hit from some particular player, passing their ID as an argument; then update gameState
+        // TODO: Handle a stand from some particular player, passing their ID as an argument; then update gameState
     }
     
 }
