@@ -65,6 +65,8 @@ class TextUI extends UserInterface {
             System.out.print(".");
         }
         
+        System.out.println("Connected!\n\n");
+        
         if (!controller.gameStateBuilt && (System.currentTimeMillis() - startTime) > controller.GAMESTATE_INIT_TIMEOUT) {
             System.out.println("\nThe game server did not respond. Please try again later, or join to another server. The program will now exit.");
             System.exit(0);
@@ -95,7 +97,7 @@ class TextUI extends UserInterface {
                 if (newName.length >= 3 && newName.length <= this.COLUMN_SIZE - 2 && !newName.trim().isEmpty()) {
                     done = true;
                 } else {
-                    System.out.println("Name not valid. The name must contain at least three characters and max 22 characters.");
+                    System.out.println("Name not valid. The name must contain at least three characters and at most 22 characters.");
                 }
             }
         }
