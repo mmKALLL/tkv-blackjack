@@ -6,6 +6,7 @@ import java.net.InetSocketAddress;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.UUID;
 
 class ConnectionManager extends Thread {
     
@@ -45,9 +46,9 @@ class ConnectionManager extends Thread {
         return this.connections;
     }
     
-    protected int generateID() {
-        // TODO: UUID or similar; less than 0.0001% collision chance for MAX_CONNECTIONS
-        // use int or long
+    protected long generateID() {
+        UUID id = UUID.randomUUID();
+        return id.getMostSignificantBits();
     }
     
     protected void setServerController(ServerController newServerController) {
