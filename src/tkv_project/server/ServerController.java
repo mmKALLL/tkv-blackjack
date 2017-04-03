@@ -1,5 +1,7 @@
 package tkv_project.server;
 
+import java.util.Random;
+
 class ServerController {
 
     private ServerConstants serverConstants;
@@ -45,12 +47,62 @@ class ServerController {
         this.connectionManager = manager;
     }
     
-    protected void handleHit() {
-        // TODO: Handle a hit from some particular player, passing their ID as an argument; then update gameState
+    protected void setName(long id, String name) {
+        for (String[] player : gameState) {
+            if (player[0] == new Long(id).toString()) {
+                player[1] = name;
+                break;
+            }
+        }
+    }
+
+    // Adds the chosen card to the player's cards and counts the total value to see if player has exceeded the limit.
+    // If limit is exceeded, add a dot '.' to indicate that the player is done for the round.
+    protected void handleHit(long id, List<String> deck) {
+
+        // A card is chosen at random from the remaining cards.
+        Random rand = new Random();
+        int randomCard = rand.nextInt(deck.size());
+        String chosenCard = deck.get(randomCard);
+        deck.remove(randomCard);
+
+        for (String[] player : gameState) {
+            if (player[0] == new Long(id).toString()) {
+                player[2] += chosenCard;
+
+                int total = 0;
+
+                for (int i = 0; i < player[2].length(); i + 2) {
+                    char cardValue = player[2][i];
+                    if (Character.isLetter(cardValue)) {
+                        if (cardValue == 'A') {
+                            // TODO: Handle counting when player gets an ace. Easiest would be to assign A to 1 or 11
+                        } else {
+                            total += 10;
+                        }
+                    } else {
+                        total += Integer.parseInt(cardValue);
+                    }
+                }
+
+                if (total >= 21) {
+                    player[2] += ".";
+                }
+
+                break;
+            }
+        }
+
     }
     
-    protected void handleStand() {
-        // TODO: Handle a stand from some particular player, passing their ID as an argument; then update gameState
+    // Adds a dot '.' to the end of the player's cards to indicate that he/she is done for the round.
+    protected void handleStand(long id) {
+        for (String[] player : gameState) {
+            if (player[0] == new Long(id).toString()) {
+                player[2] += ".";
+                break;
+            }
+        }
     }
     
 }

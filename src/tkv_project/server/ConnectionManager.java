@@ -58,8 +58,6 @@ class ConnectionManager extends Thread {
     }
     
     protected long generateID() {
-        // TODO: UUID or similar; less than 0.0001% collision chance for MAX_CONNECTIONS
-        // use int or long
         UUID id = UUID.randomUUID();
         return id.getMostSignificantBits();
     }
