@@ -49,16 +49,19 @@ class ConnectionManager extends Thread {
         
     protected void addConnection() {
         // TODO: Increase currentConnections count, generate ID, add a new Connection to the connections array.
+        connections[currentConnections] = new Connection(this.servSock.accept(), generateID()).start();
+        this.currentConnections++;
     }
     
     protected Connection[] getConnections() {
         return this.connections;
     }
     
-    protected int generateID() {
+    protected long generateID() {
         // TODO: UUID or similar; less than 0.0001% collision chance for MAX_CONNECTIONS
         // use int or long
-        return currentConnections + 1;
+        UUID id = UUID.randomUUID();
+        return id.getMostSignificantBits();
     }
     
     protected void setServerController(ServerController newServerController) {

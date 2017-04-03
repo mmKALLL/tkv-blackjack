@@ -3,6 +3,7 @@ package tkv_project.server;
 class ServerController {
 
     private ServerConstants serverConstants;
+    private ConenctionManager connectionManager;
     // TODO: multiple game support
     
     // First index is player order, with [0] being the dealer.
@@ -14,6 +15,34 @@ class ServerController {
     public ServerController(ServerConstants servConsts) {
         // TODO: initialize gameState and any necessary related stuff
         gameState = new String[serverConstants.MAX_PLAYERS_PER_GAME][4];
+
+        List<String> deck = new ArrayList<String>();
+        
+        for (int i = 0; i < servConsts.DEFAULT_DECKS_IN_GAME; i++) {
+            for (char suit : sercvConsts.cardSuits) {
+                for (char value : servConst.cardValues) {
+                    deck.add(value + "" + suit);
+                }
+            }
+        }
+
+        // a full deck for when the cards run low and the deck needs to be shuffled 
+        List<String> fullDeck = deck;
+
+        // Dealer's info
+        gameState[0][0] = "0";
+        gameState[0][1] = "Dealer";
+        
+        int playerCount = 1;
+        for (Connection player : connectionManager.getConnections()) {
+            gameState[playerCount][0] = new Long(player.getID()).toString();;
+            playerCount++;
+        }
+
+    }
+
+    protected setConnectionManager(ConnectionManager manager) {
+        this.connectionManager = manager;
     }
     
     protected void handleHit() {
