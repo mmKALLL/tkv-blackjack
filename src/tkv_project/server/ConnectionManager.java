@@ -70,7 +70,7 @@ class ConnectionManager extends Thread {
     
     // A wrapper for a socket connecting a player, with information about their game's state.
     private class Connection extends Thread {
-        private int ID;
+        private long ID;
         private Socket socket;
         private ServerConstants serverConstants;
         
@@ -108,11 +108,11 @@ class ConnectionManager extends Thread {
             }
         }
         
-        public void setID(int newID) {
+        public void setID(long newID) {
             this.ID = newID;
         }
         
-        public int getID() {
+        public long getID() {
             return this.ID;
         }
         
