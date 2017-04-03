@@ -85,7 +85,7 @@ class TextUI extends UserInterface {
         return ret;
     }
     
-    private void update() {
+    protected void update() {
 
         if (this.controller.getThisPlayerName() == "") {
             System.out.println("Please enter a name:");
@@ -93,8 +93,12 @@ class TextUI extends UserInterface {
             String newName = "";
             boolean done = false;
             while (!done) {
-                newName = in.readLine();
-                if (newName.length >= 3 && newName.length <= this.COLUMN_SIZE - 2 && !newName.trim().isEmpty()) {
+                try {
+                    newName = in.readLine();
+                } catch (IOException e) {
+                    newName = "";
+                }
+                if (newName.length() >= 3 && newName.length() <= this.COLUMN_SIZE - 2 && !newName.trim().isEmpty()) {
                     done = true;
                 } else {
                     System.out.println("Name not valid. The name must contain at least three characters and at most 22 characters.");
@@ -103,27 +107,27 @@ class TextUI extends UserInterface {
         }
 
         // Print the dealer's name and cards
-        System.out.println(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState[0][1]));
-        System.out.println(String.format("%-" + this.COLUMN_SIZE + "s", separateCards(controller.getGameState[0][2])));
+        System.out.println(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState()[0][1]));
+        System.out.println(String.format("%-" + this.COLUMN_SIZE + "s", separateCards(controller.getGameState()[0][2])));
 
         System.out.println();
         
         // Print the players' names
         for (int i = 1; i < controller.getNumOfPlayers(); i++) {
-            System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState[i][1]));
+            System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState()[i][1]));
         }
         System.out.println();
         
         // Print the players' money
         for (int i = 1; i < controller.getNumOfPlayers(); i++) {
-            System.out.print(String.format("Money: %-" + (this.COLUMN_SIZE - 7) + "s", controller.getGameState[i][3]));
+            System.out.print(String.format("Money: %-" + (this.COLUMN_SIZE - 7) + "s", controller.getGameState()[i][3]));
         }
         System.out.println();
         
         // Print the players' first eight cards
         List<Integer> list = new ArrayList<Integer>();
         for (int i = 1; i < controller.getNumOfPlayers(); i++) {
-        	String tmp = separateCards(controller.getGameState[i][2]);
+        	String tmp = separateCards(controller.getGameState()[i][2]);
         	if (tmp.length() > this.COLUMN_SIZE) {
         		tmp = tmp.substring(0, this.COLUMN_SIZE);
         		list.add(i);
@@ -136,7 +140,7 @@ class TextUI extends UserInterface {
         if (!list.isEmpty()) {
         	for (int i = 0; i < controller.getNumOfPlayers(); i++) {
         		if (list.contains(i)) {
-        			System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState[i][2]).substring(this.COLUMN_SIZE));
+        			System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", controller.getGameState()[i][2]).substring(this.COLUMN_SIZE));
         		} else {
         			System.out.print(String.format("%-" + this.COLUMN_SIZE + "s", ""));
         		}
