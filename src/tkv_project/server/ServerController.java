@@ -16,11 +16,11 @@ class ServerController {
         gameState = new String[serverConstants.MAX_PLAYERS_PER_GAME][4];
     }
     
-    protected handleHit() {
+    protected void handleHit() {
         // TODO: Handle a hit from some particular player, passing their ID as an argument; then update gameState
     }
     
-    protected handleStand() {
+    protected void handleStand() {
         // TODO: Handle a stand from some particular player, passing their ID as an argument; then update gameState
     }
     

@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.InetSocketAddress;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -19,22 +20,30 @@ class ConnectionManager extends Thread {
     protected ConnectionManager(ServerConstants servConsts) {
         this.serverConstants = servConsts;
         this.connections = new Connection[this.serverConstants.MAX_CONNECTIONS + 1]; // +1 to prevent rare crashes from race conditions
-        this.servSock = new ServerSocket(serverConstants.DEFAULT_PORT);
     }
     
     // Start listening to incoming connections in a new thread.
     public void run() {
         try {
+            this.servSock = new ServerSocket(serverConstants.DEFAULT_PORT);
             while (true) {
                 if (currentConnections < this.serverConstants.MAX_CONNECTIONS) {
-                    connections[currentConnections] = new Connection(this.servSock.accept(), generateID()).start();
+                    connections[currentConnections] = new Connection(this.servSock.accept(), generateID(), this.serverConstants);
+                    connections[currentConnections].start();
                     this.currentConnections++;
                 } else {
                     // TODO: refuse the incoming connection; this server is full
                 }
             }
+        } catch (IOException e) {
+            System.out.println("Error occurred when accepting a new client to the server socket.");
         } finally {
-            servSock.close();
+            try {
+                servSock.close();
+            } catch (IOException e) {
+                System.out.println("!!! Error when closing servSock in ConnectionManager!!!");
+            }
+            System.out.println("Server ConnectionManager closed.");
         }
     }
         
@@ -42,13 +51,14 @@ class ConnectionManager extends Thread {
         // TODO: Increase currentConnections count, generate ID, add a new Connection to the connections array.
     }
     
-    protected void getConnections() {
+    protected Connection[] getConnections() {
         return this.connections;
     }
     
-    protected long generateID() {
-        UUID id = UUID.randomUUID();
-        return id.getMostSignificantBits();
+    protected int generateID() {
+        // TODO: UUID or similar; less than 0.0001% collision chance for MAX_CONNECTIONS
+        // use int or long
+        return currentConnections + 1;
     }
     
     protected void setServerController(ServerController newServerController) {
@@ -59,10 +69,12 @@ class ConnectionManager extends Thread {
     private class Connection extends Thread {
         private int ID;
         private Socket socket;
+        private ServerConstants serverConstants;
         
-        public Connection(Socket socket, int initialID) {
+        public Connection(Socket socket, int initialID, ServerConstants servConsts) {
             this.socket = socket;
             this.ID = initialID;
+            this.serverConstants = servConsts;
         }
         
         public void run() {
@@ -71,7 +83,7 @@ class ConnectionManager extends Thread {
                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                 
                 System.out.println("Client connected, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
-                out.println("Welcome to the tkv-blackjack game server, version " + this.ServerConstants.SERVER_VERSION + "!");
+                out.println("Welcome to the tkv-blackjack game server, version " + this.serverConstants.SERVER_VERSION + "!");
                 
                 // TODO: Try to add the player to the current game if it's not full.
                 
@@ -87,7 +99,7 @@ class ConnectionManager extends Thread {
                 try {
                     socket.close();
                 } catch (IOException e) {
-                    System.out.println("!!! Error when closing socket on Connection with ID: " this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + "!!!");
+                    System.out.println("!!! Error when closing socket on Connection with ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + "!!!");
                 }
                 System.out.println("Connection to client closed, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
             }

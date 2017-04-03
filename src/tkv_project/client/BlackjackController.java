@@ -46,14 +46,14 @@ class BlackjackController {
     }
     
     protected void playStand() {
-        networkManager.sendMessage(playerID + " stand");   
+        networkManager.sendMessage(playerID + " stand");
     }
     
     // A non-separated string where, for each card, there is a card number/symbol followed by suit symbol.
     // e.g. "", "6s", "Jh", "As", "5s5c", "9cQhAs5d", "9c9c9c9c9c9c9c".
     protected String getThisPlayerCards() {
         for(String[] player : gameState) {
-            if(player[0] == playerID) {
+            if(Integer.parseInt(player[0]) == playerID) {
                 return player[2];
             }
         }
@@ -69,14 +69,19 @@ class BlackjackController {
     }
     
     protected int getThisPlayerMoney() {
-        return money;
+        for(String[] player : gameState) {
+            if(Integer.parseInt(player[0]) == playerID) {
+                return Integer.parseInt(player[3]);
+            }
+        }
+        return Integer.MIN_VALUE;
     }
 
     protected int getNumOfPlayers() {
         if (this.gameStateBuilt) {
             if (this.gameState.length >= 2) {
                 int i = 1;
-                while(gameState[i][0] != null && gameState[i][0] != 0 && i < gameState.length) {
+                while(gameState[i][0] != null && Integer.parseInt(gameState[i][0]) != 0 && i < gameState.length) {
                     i++;
                 }
                 return i - 1;

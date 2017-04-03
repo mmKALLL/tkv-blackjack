@@ -1,9 +1,9 @@
 package tkv_project.server;
 
-class ServerConstants {
+final class ServerConstants {
     
     public static final String SERVER_VERSION = "0.2.4";
-    public static final int DEFAULT_PORT = 47855
+    public static final int DEFAULT_PORT = 47855;
     
     public static final int MAX_CONNECTIONS = 1000;
     public static final int MAX_SIMULTANEOUS_GAMES = 1 /*500*/;

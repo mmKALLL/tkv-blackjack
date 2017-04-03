@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
-import java.io.InputStreamWriter;
+import java.io.PrintWriter;
 import java.io.IOException;
 
 /*
@@ -16,7 +16,7 @@ class NetworkManager extends Thread {
     
     private Socket serverConnection;
     private BufferedReader in;
-    private BufferedWriter out;
+    private PrintWriter out;
     private BlackjackController controller;
     
     protected NetworkManager(BlackjackController control, InetSocketAddress sockaddr) {
