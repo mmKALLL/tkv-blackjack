@@ -27,11 +27,29 @@ class NetworkManager extends Thread {
             out = new PrintWriter(serverConnection.getOutputStream(), true);
         } catch (IOException e) {
             controller.handleServerConnectionFailure(e);
+        } finally {
+            try {
+                serverConnection.close();
+            } catch (IOException e) {
+                System.out.println("!!! Error when closing serverConnection in NetworkManager!!!");
+            }
         }
     }
     
     private void receiveMessage() {
-        // TODO
+        String message;
+        try {
+        	message = in.readLine();
+        	// TODO: implement once known in which format data is sent
+        } catch (IOException e) {
+        	controller.handleServerConnectionFailure(e);
+    	} finally {
+            try {
+                serverConnection.close();
+            } catch (IOException e) {
+                System.out.println("!!! Error when closing serverConnection in NetworkManager!!!");
+            }
+        }
     }
     
     void sendMessage(String msg) {

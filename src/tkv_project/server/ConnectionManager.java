@@ -49,7 +49,8 @@ class ConnectionManager extends Thread {
         
     protected void addConnection() {
         // TODO: Increase currentConnections count, generate ID, add a new Connection to the connections array.
-        connections[currentConnections] = new Connection(this.servSock.accept(), generateID()).start();
+        connections[currentConnections] = new Connection(this.servSock.accept(), generateID(), this.serverConstants);
+        connections[currentConnections].start();
         this.currentConnections++;
     }
     
@@ -72,7 +73,7 @@ class ConnectionManager extends Thread {
         private Socket socket;
         private ServerConstants serverConstants;
         
-        public Connection(Socket socket, int initialID, ServerConstants servConsts) {
+        public Connection(Socket socket, long initialID, ServerConstants servConsts) {
             this.socket = socket;
             this.ID = initialID;
             this.serverConstants = servConsts;
@@ -92,6 +93,15 @@ class ConnectionManager extends Thread {
                 while (true) {
                     String clientMessage = in.readLine();
                     // TODO: Do things with serverController when client says stuff.
+                    if (clientMessage.contains("hit")) {
+                        serverController.handleHit(ID);
+                        // TODO: make clients update to current state of the game
+                    } else if (clientMessage.contains("stand")) {
+                        serverController.handleStand(ID);
+                        // TODO: make clients update to current state of the game
+                    } else if (clientMessage.contains("quit")) {
+                        break;
+                    }
                 }
                 
             } catch (IOException e) {

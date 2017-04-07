@@ -1,11 +1,13 @@
 package tkv_project.server;
 
 import java.util.Random;
+import java.util.List;
+import java.util.ArrayList;
 
 class ServerController {
 
     private ServerConstants serverConstants;
-    private ConenctionManager connectionManager;
+    private ConnectionManager connectionManager;
     // TODO: multiple game support
     
     // First index is player order, with [0] being the dealer.
@@ -13,16 +15,17 @@ class ServerController {
     // gameState[i][4] and [i][5] are reserved for future use regarding doubling and surrenders.
     // gameState[i][6] and [i][7] are reserved for future use regarding real-time actions made by players.
     private String[][] gameState;
+    private List<String> deck;
     
     public ServerController(ServerConstants servConsts) {
         // TODO: initialize gameState and any necessary related stuff
         gameState = new String[serverConstants.MAX_PLAYERS_PER_GAME][4];
 
-        List<String> deck = new ArrayList<String>();
+        deck = new ArrayList<String>();
         
         for (int i = 0; i < servConsts.DEFAULT_DECKS_IN_GAME; i++) {
-            for (char suit : sercvConsts.cardSuits) {
-                for (char value : servConst.cardValues) {
+            for (char suit : servConsts.cardSuits) {
+                for (char value : servConsts.cardValues) {
                     deck.add(value + "" + suit);
                 }
             }
@@ -41,9 +44,10 @@ class ServerController {
             playerCount++;
         }
 
+        // TODO: A lot of things
     }
 
-    protected setConnectionManager(ConnectionManager manager) {
+    protected void setConnectionManager(ConnectionManager manager) {
         this.connectionManager = manager;
     }
     
@@ -58,7 +62,7 @@ class ServerController {
 
     // Adds the chosen card to the player's cards and counts the total value to see if player has exceeded the limit.
     // If limit is exceeded, add a dot '.' to indicate that the player is done for the round.
-    protected void handleHit(long id, List<String> deck) {
+    protected void handleHit(long id) {
 
         // A card is chosen at random from the remaining cards.
         Random rand = new Random();
@@ -72,8 +76,8 @@ class ServerController {
 
                 int total = 0;
 
-                for (int i = 0; i < player[2].length(); i + 2) {
-                    char cardValue = player[2][i];
+                for (int i = 0; i < player[2].length(); i += 2) {
+                    char cardValue = player[2].charAt(i);
                     if (Character.isLetter(cardValue)) {
                         if (cardValue == 'A') {
                             // TODO: Handle counting when player gets an ace. Easiest would be to assign A to 1 or 11
@@ -81,7 +85,7 @@ class ServerController {
                             total += 10;
                         }
                     } else {
-                        total += Integer.parseInt(cardValue);
+                        total += Character.getNumericValue(cardValue);
                     }
                 }
 
