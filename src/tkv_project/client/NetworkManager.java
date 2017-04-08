@@ -36,11 +36,13 @@ class NetworkManager extends Thread {
         }
     }
     
-    private void receiveMessage() {
-        String message;
+    protected void receiveMessage() {
         try {
-        	message = in.readLine();
-        	// TODO: implement once known in which format data is sent
+        	while (true) {
+	        	String message = in.readLine();
+	        	String[][] newGameState = parseMessage(message);
+	        	controller.updateGameState(newGameState);
+        	}
         } catch (IOException e) {
         	controller.handleServerConnectionFailure(e);
     	} finally {
@@ -52,7 +54,7 @@ class NetworkManager extends Thread {
         }
     }
     
-    void sendMessage(String msg) {
+    protected void sendMessage(String msg) {
         /* send msg over the socket */
         this.out.println(msg);
     }
@@ -61,6 +63,23 @@ class NetworkManager extends Thread {
         // Wait for messages, etc...
         
         // TODO: Send a message to server and get the game's status. Then call controller.initializeGameState().
+    }
+
+    private String[][] parseMessage(String message) {
+
+    	String[] messageInfo = message.split("#");
+    	int numberOfPlayers = messageInfo.length;
+    	String[][] newGameState = new String[numberOfPlayers][4];
+
+    	for (int i = 0; i < numberOfPlayers; i++) {
+    		String[] playerInfo = messageInfo[i].split("&");
+
+    		for (int j = 0; j < 4; j++) {
+    			newGameState[i][j] = playerInfo[j];
+    		}
+    	}
+
+    	return newGameState;
     }
     
 }

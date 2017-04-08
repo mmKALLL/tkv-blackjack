@@ -95,10 +95,10 @@ class ConnectionManager extends Thread {
                     // TODO: Do things with serverController when client says stuff.
                     if (clientMessage.contains("hit")) {
                         serverController.handleHit(ID);
-                        // TODO: make clients update to current state of the game
+                        out.println(serverController.getSendableGameState());
                     } else if (clientMessage.contains("stand")) {
                         serverController.handleStand(ID);
-                        // TODO: make clients update to current state of the game
+                        out.println(serverController.getSendableGameState());
                     } else if (clientMessage.contains("quit")) {
                         break;
                     }
