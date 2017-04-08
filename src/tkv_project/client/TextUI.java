@@ -99,6 +99,7 @@ class TextUI extends UserInterface {
                     newName = "";
                 }
                 if (newName.length() >= 3 && newName.length() <= this.COLUMN_SIZE - 2 && !newName.trim().isEmpty()) {
+                	controller.setName(newName);
                     done = true;
                 } else {
                     System.out.println("Name not valid. The name must contain at least three characters and at most 22 characters.");

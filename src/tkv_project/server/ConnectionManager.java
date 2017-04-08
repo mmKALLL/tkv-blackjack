@@ -93,7 +93,9 @@ class ConnectionManager extends Thread {
                 while (true) {
                     String clientMessage = in.readLine();
                     // TODO: Do things with serverController when client says stuff.
-                    if (clientMessage.contains("hit")) {
+                    if (clientMessage.contains("name")) {
+                        serverController.setName(ID, clientMessage.split(":")[1]);
+                    } else if (clientMessage.contains("hit")) {
                         serverController.handleHit(ID);
                         out.println(serverController.getSendableGameState());
                     } else if (clientMessage.contains("stand")) {

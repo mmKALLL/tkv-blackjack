@@ -48,6 +48,10 @@ class BlackjackController {
     protected void playStand() {
         networkManager.sendMessage(playerID + " stand");
     }
+
+    protected void setName(String message) {
+    	networkManager.sendMessage("name:" + message);
+    }
     
     // A non-separated string where, for each card, there is a card number/symbol followed by suit symbol.
     // e.g. "", "6s", "Jh", "As", "5s5c", "9cQhAs5d", "9c9c9c9c9c9c9c".
