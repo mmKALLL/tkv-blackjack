@@ -1,0 +1,332 @@
+commit d166a0823d2867462a72e01e4d858f0f61ba553b
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 21:09:41 2017 +0300
+
+    Fixed minor bug.
+
+commit 17e83e6d08a68659061667ef86cc558c9645ebab
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 21:08:24 2017 +0300
+
+    Added more debug stuff.
+
+commit 7070e23c9c2830681a63d2b64f406a2f08035565
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 20:50:39 2017 +0300
+
+    The connectivity works now. Rest of game logic left.
+
+commit ed8a9baeebfabd89f7f3d8c8de039b3184fa5f55
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 20:42:36 2017 +0300
+
+    Progress! Client updates work somewhat fine now, but gamestate sent has nulls...
+
+commit 841007f80b61b9525cf6d89eebf012d6e3b6e45b
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 19:24:33 2017 +0300
+
+    No more crashes! Gamestate data is now parsed properly.
+
+commit 522988bb6ac46ea8ae72778454fd6a91983105cc
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 18:57:12 2017 +0300
+
+    Started making the finalized network handling.
+
+commit 75d348ceb7a79b5a36d0e5d30aec2cb91dd02642
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 18:09:08 2017 +0300
+
+    Added stress test
+
+commit d5460332aa3685d2f3933364be895bf90f585cae
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 17:46:56 2017 +0300
+
+    Added better scripts; increased amount of debug messages if DEBUG = true.
+
+commit 84d6f3003a5530c2fec891be8cf3d77532069bee
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 17:24:13 2017 +0300
+
+    Added null checks.
+
+commit db609c9a79a80843d440eaf7675778bc934550e4
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 16:56:45 2017 +0300
+
+    Fixed launch scripts; fixed various things in the connectivity.
+
+commit 2a862edb52f462cf011cfef5353c9b89a533645d
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 16:43:57 2017 +0300
+
+    Fixed bugs in server; it works about fine now.
+
+commit b885ddfc2beef6b82a9f5fe8af332a2867b837fe
+Merge: 2adc66b 1b6915c
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Apr 9 15:14:56 2017 +0300
+
+    Merge branch 'feature-dev' of git.niksula.hut.fi:koskine6/tkv-project into feature-dev
+
+commit 2adc66b4a502908c081ee079b7859c34ca426081
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sat Apr 8 22:18:57 2017 +0300
+
+    Added a launcher for building and starting the server.
+
+commit 1b6915cd8472ee685ade93f702d6a9fa2dfe653f
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Sat Apr 8 19:48:06 2017 +0300
+
+    Sets asked name to the gameState in the server
+
+commit a330edb4765873a57d6c88848a76fc7b91720905
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Sat Apr 8 13:52:24 2017 +0300
+
+    Implemented constructing and parseing of sendable message
+
+commit ef161b1a0d008f3eb5b80dea00ede98bdd8ef2ef
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Fri Apr 7 17:51:27 2017 +0300
+
+    FIxed compile errors, some still exist but it runs now
+
+commit b6d60a485793ac41250c3aac78fc90349cd04253
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Mon Apr 3 18:54:23 2017 +0300
+
+    Implemented handleHit, handleStand and setName
+
+commit 0691694bef9b2838daae674e7696a89f75f0d4a8
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Mon Apr 3 15:55:02 2017 +0300
+
+    Changed int to long generateID now generates long
+
+commit cbd4f62dc346784f3b11868e8581b3a3a68816c7
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Mon Apr 3 15:46:10 2017 +0300
+
+    Implemented generateID and small things in serverController
+
+commit 4a8e3724e4a375986c1f73ff3c0484ee62cea539
+Merge: eb8ae27 5fd1b8a
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Mon Apr 3 15:36:25 2017 +0300
+
+    Merged from upstream
+
+commit 5fd1b8a8e66da2918c7725085aa69d772c6dcd59
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Mon Apr 3 15:26:01 2017 +0300
+
+    Fixed all compilation errors.
+
+commit fc0ebf3d56b1ca60fe40c65e6aebf34db3c7016d
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Mon Apr 3 14:50:01 2017 +0300
+
+    Added final modifier to ServerConstants
+
+commit eb8ae270533754d74d0be8d6ff8d63dad61524cc
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Sat Apr 1 14:19:20 2017 +0300
+
+    Implemented generateID
+
+commit 5511e50430c8ef3416603c5f1e54dc5bcf122f50
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Thu Mar 30 19:39:38 2017 +0300
+
+    Fixed a couple of typos in comments.
+
+commit 2b053946b7cbeb2fd81f3ae2c83dcb9369906325
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Thu Mar 30 19:37:35 2017 +0300
+
+    ConnectionManager is almost done; handling of game logic and the client-server communication left.
+
+commit b6c206a0d6fa9c142e52f22558201ded609670d0
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Thu Mar 30 18:53:02 2017 +0300
+
+    Added a bunch of server code, it looks like the project is nearing completion.
+
+commit 94af6bddf28e46305cffdb846f7d8767cbaa287b
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Tue Mar 28 15:41:14 2017 +0300
+
+    Implemented printing cards on multiple (2) lines
+
+commit 2862279a1c036d9d885c6b55526ae61232d73739
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Mon Mar 27 17:57:53 2017 +0300
+
+    Wrote out NetworkManager.sendMessage();
+
+commit dc03aa669308233f043ff55aa36c5719a924f3a8
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Mon Mar 27 16:39:24 2017 +0300
+
+    Added writer to NetworkManager
+
+commit ea077a96f649544da2d221a2bf23272e98cc6877
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Mon Mar 27 16:04:21 2017 +0300
+
+    Implemented UI update
+
+commit 92d19b656384bc195d21426fdbec55ea8824fe9f
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Mon Mar 27 14:54:26 2017 +0300
+
+    Controller done
+
+commit aed4761564d3a1cffa1541b897841e7852249118
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Mar 12 18:20:29 2017 +0200
+
+    Greatly improved the user-facing error reporting; it is decently robust now.
+
+commit 831f24de75e7a2c3e1b3a0b914e04118d0a0af6f
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Mar 12 18:14:43 2017 +0200
+
+    Fixed a bunch of stuff, changed some things to work better, added new features in server.
+
+commit d849eb91b35f4f4b042612db2c8dce6b70936eea
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Mar 12 16:47:16 2017 +0200
+
+    Added several TODOs and made code a bit clearer.
+
+commit 94a4fc4178a0debcff0273856c409a0ec82c2b85
+Author: mmKALLL <esakoskin2@gmail.com>
+Date:   Sun Mar 12 16:42:32 2017 +0200
+
+    Added a restart method stub into Launcher.
+
+commit 3e9ebd635f7e4c60ea8d670a153843d47add5d19
+Merge: e0fb1d2 9e29d34
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sun Mar 12 16:04:06 2017 +0200
+
+    Merge branch 'master' of git.niksula.hut.fi:koskine6/tkv-project
+
+commit e0fb1d24d2800bd217512bd6f47df13eee07ca17
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 23:51:10 2017 +0200
+
+    Added TODO notes.
+
+commit e9a9377887f4c2f1b9b3a8b4a2b33ef02be7ed50
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 23:46:32 2017 +0200
+
+    Added a user notification in the case of timeout.
+
+commit f359b34fd513aed46d12cdcb2148713856cb92dd
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 23:42:33 2017 +0200
+
+    Modified run.sh a bit; hopefully fixed initialization timeout.
+
+commit 3e21e2312d5fba6de24fc2904a58a5efd59a29d4
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 23:26:46 2017 +0200
+
+    Client compiles and runs fine; this is master version 0.5.2.
+
+commit 9e29d34f227d0e02f4a201d696d0a6354cf07028
+Author: Gonzalez Carceller Felipe <gonzalf1@niksula.hut.fi>
+Date:   Sat Mar 11 23:11:23 2017 +0200
+
+    Remove 1 from cardValues and change T to 10
+
+commit 060f84627baffc9b4f3e6e2b7b4e5b5e300b503e
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 23:10:53 2017 +0200
+
+    Started implementing an interface for UI classes.
+
+commit 802eca12d1de4e2a1be6030e7c4e84d962964511
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 22:38:18 2017 +0200
+
+    Fixed several compile errors; added a lot of functionality.
+
+commit 897d9262c68d57120de8b907b8d0ade664754d06
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 22:21:28 2017 +0200
+
+    Added server stubs, added various constants to both client and server.
+
+commit 2346f1a888743c34cc0449c7182363284eddacc3
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 22:00:19 2017 +0200
+
+    Fixed a bunch of compile errors; changed Controller class name to BlackjackController.
+
+commit 35a625833c35081ebb7d38d4e54ae5f5c12ab457
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 21:19:38 2017 +0200
+
+    Fleshed out more of the client code.
+
+commit 24bda878317716732acb7786af1ab3ab93b3fe7b
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 20:53:08 2017 +0200
+
+    Pretty much all client side code structure done with stubs or crude implementations.
+
+commit e6810aab27dd4e3a8380f8860d70f04e01257655
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 20:30:40 2017 +0200
+
+    Started implementing UI, launching mechanism, etc.
+
+commit c1ff67f2fd6999beb86c9616709cce414bde604a
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 19:29:28 2017 +0200
+
+    Added structure into client-side NetworkManager.
+
+commit 6df20bbb57f415d949816305057a4919f75cad4f
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Sat Mar 11 18:56:46 2017 +0200
+
+    Added package structure to the project.
+
+commit ed84b2ec42238efe93b77f4e582b2c10c950df03
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Mon Feb 13 21:48:15 2017 +0200
+
+    Removed class files from tracking.
+
+commit 34d3626062499365789b2e204a5c7cd1c009fd88
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Mon Feb 13 21:46:03 2017 +0200
+
+    Made minor updates to gitignore.
+
+commit dc0be3722c768ff0c856642c5f962646d9326bf2
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Mon Feb 13 21:43:31 2017 +0200
+
+    Renamed classes to make them more sensible. Added gitignore.
+
+commit 501a72f6b87dab136d9ce3fcd842f76c1ee1d180
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Mon Feb 13 20:14:08 2017 +0200
+
+    Added a README file.
+
+commit 3fc5221c228aa1c9f1208a752274c008a119d3bc
+Author: koskine6 <esa.t.koskinen@aalto.fi>
+Date:   Mon Feb 13 20:07:55 2017 +0200
+
+    Initial commit; made some test files for remote compiling.
