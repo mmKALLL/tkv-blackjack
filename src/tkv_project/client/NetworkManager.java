@@ -27,14 +27,34 @@ class NetworkManager extends Thread {
             out = new PrintWriter(serverConnection.getOutputStream(), true);
         } catch (IOException e) {
             controller.handleServerConnectionFailure(e);
+        } finally {
+            try {
+                serverConnection.close();
+            } catch (IOException e) {
+                System.out.println("!!! Error when closing serverConnection in NetworkManager!!!");
+            }
         }
     }
     
-    private void receiveMessage() {
-        // TODO
+    protected void receiveMessage() {
+        try {
+        	while (true) {
+	        	String message = in.readLine();
+	        	String[][] newGameState = parseMessage(message);
+	        	controller.updateGameState(newGameState);
+        	}
+        } catch (IOException e) {
+        	controller.handleServerConnectionFailure(e);
+    	} finally {
+            try {
+                serverConnection.close();
+            } catch (IOException e) {
+                System.out.println("!!! Error when closing serverConnection in NetworkManager!!!");
+            }
+        }
     }
     
-    void sendMessage(String msg) {
+    protected void sendMessage(String msg) {
         /* send msg over the socket */
         this.out.println(msg);
     }
@@ -43,6 +63,23 @@ class NetworkManager extends Thread {
         // Wait for messages, etc...
         
         // TODO: Send a message to server and get the game's status. Then call controller.initializeGameState().
+    }
+
+    private String[][] parseMessage(String message) {
+
+    	String[] messageInfo = message.split("#");
+    	int numberOfPlayers = messageInfo.length;
+    	String[][] newGameState = new String[numberOfPlayers][4];
+
+    	for (int i = 0; i < numberOfPlayers; i++) {
+    		String[] playerInfo = messageInfo[i].split("&");
+
+    		for (int j = 0; j < 4; j++) {
+    			newGameState[i][j] = playerInfo[j];
+    		}
+    	}
+
+    	return newGameState;
     }
     
 }

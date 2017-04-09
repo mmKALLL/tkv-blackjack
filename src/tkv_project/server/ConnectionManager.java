@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.util.UUID;
 
 class ConnectionManager extends Thread {
     
@@ -48,16 +49,18 @@ class ConnectionManager extends Thread {
         
     protected void addConnection() {
         // TODO: Increase currentConnections count, generate ID, add a new Connection to the connections array.
+        connections[currentConnections] = new Connection(this.servSock.accept(), generateID(), this.serverConstants);
+        connections[currentConnections].start();
+        this.currentConnections++;
     }
     
     protected Connection[] getConnections() {
         return this.connections;
     }
     
-    protected int generateID() {
-        // TODO: UUID or similar; less than 0.0001% collision chance for MAX_CONNECTIONS
-        // use int or long
-        return currentConnections + 1;
+    protected long generateID() {
+        UUID id = UUID.randomUUID();
+        return id.getMostSignificantBits();
     }
     
     protected void setServerController(ServerController newServerController) {
@@ -66,11 +69,11 @@ class ConnectionManager extends Thread {
     
     // A wrapper for a socket connecting a player, with information about their game's state.
     private class Connection extends Thread {
-        private int ID;
+        private long ID;
         private Socket socket;
         private ServerConstants serverConstants;
         
-        public Connection(Socket socket, int initialID, ServerConstants servConsts) {
+        public Connection(Socket socket, long initialID, ServerConstants servConsts) {
             this.socket = socket;
             this.ID = initialID;
             this.serverConstants = servConsts;
@@ -90,6 +93,17 @@ class ConnectionManager extends Thread {
                 while (true) {
                     String clientMessage = in.readLine();
                     // TODO: Do things with serverController when client says stuff.
+                    if (clientMessage.contains("name")) {
+                        serverController.setName(ID, clientMessage.split(":")[1]);
+                    } else if (clientMessage.contains("hit")) {
+                        serverController.handleHit(ID);
+                        out.println(serverController.getSendableGameState());
+                    } else if (clientMessage.contains("stand")) {
+                        serverController.handleStand(ID);
+                        out.println(serverController.getSendableGameState());
+                    } else if (clientMessage.contains("quit")) {
+                        break;
+                    }
                 }
                 
             } catch (IOException e) {
@@ -104,11 +118,11 @@ class ConnectionManager extends Thread {
             }
         }
         
-        public void setID(int newID) {
+        public void setID(long newID) {
             this.ID = newID;
         }
         
-        public int getID() {
+        public long getID() {
             return this.ID;
         }
         
