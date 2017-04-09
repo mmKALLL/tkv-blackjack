@@ -153,12 +153,12 @@ class ServerController {
     // firstPlayersValue1 + ! + firstPlayersValue2 + ! + firstPlayersValue3 + ? + secondPlayersValue1 + ! + secondPlayersValue2 ...
     protected String getSendableGameState() {
         if (serverConstants.VERBOSE_MESSAGE_DEBUG) {
-            System.out.println("Building SendableGameState in ServerController...");
+            System.out.println("\tBuilding SendableGameState in ServerController...");
         }
         String gs = "!!!gsdata!!!";
-        for (String[] player : gameState) {
+        for (int j = 0; j < playerCount; j++) {
             for (int i = 0; i < 4; i++) {               // 4 since a player has currently 4 slots in use (ID, name, cards and money)
-                gs += player[i];
+                gs += gameState[j][i];
                 gs += "&";
             }
             gs += "#";

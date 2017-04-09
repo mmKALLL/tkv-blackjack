@@ -100,7 +100,7 @@ class TextUI extends UserInterface {
                 } catch (IOException e) {
                     newName = "";
                 }
-                if (newName.length() >= 3 && newName.length() <= this.COLUMN_SIZE - 2 && !newName.trim().isEmpty() && newName.matches("^[^a-zA-Z0-9_\\-]+$")) {
+                if (newName.length() >= 3 && newName.length() <= (this.COLUMN_SIZE - 2) && !(newName.trim().isEmpty()) && newName.matches("^[a-zA-Z0-9_\\-]+(\\r?\\n?)$")) {
                 	controller.setName(newName);
                     done = true;
                 } else {

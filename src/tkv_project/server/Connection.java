@@ -39,11 +39,10 @@ class Connection extends Thread {
             while (true) {
                 String clientMessage = in.readLine();
                 if (serverConstants.VERBOSE_MESSAGE_DEBUG) {
-                    System.out.println(clientMessage);
+                    System.out.println("\t" + clientMessage);
                 }
                 // TODO: Do things with serverController when client says stuff.
                 if (clientMessage != null) {
-                    System.out.println("bbb");
                     
                     if (clientMessage.contains("name")) {
                         serverController.addPlayer(ID, clientMessage.split(":")[1]);
@@ -57,7 +56,6 @@ class Connection extends Thread {
                         out.println(serverController.getSendableGameState());
                         
                     } else if (clientMessage.contains("update")) {
-                        System.out.println("aaa");
                         if (this.updates / (System.currentTimeMillis() - startTime) >= serverConstants.MAX_UPDATES_PER_SECOND) {
                             if (serverConstants.DEBUG) {
                                 System.out.println("Client asked for too many updates, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
@@ -67,7 +65,7 @@ class Connection extends Thread {
                         } else {
                             if (serverConstants.VERBOSE_MESSAGE_DEBUG) {
                                 System.out.println("Sending update for client, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
-                                System.out.println("update msg: " + serverController.getSendableGameState());
+                                System.out.println("\tupdate msg: " + serverController.getSendableGameState());
                             }
                             out.println(serverController.getSendableGameState());
                         }
@@ -77,7 +75,7 @@ class Connection extends Thread {
                         out.println("Server says: Bye-bye!");
                         break;
                     }
-                } else System.out.println("ccc");
+                }
                 // TODO: Sleep and handle InterruptedException; otherwise this loop can eat processors
             }
             
