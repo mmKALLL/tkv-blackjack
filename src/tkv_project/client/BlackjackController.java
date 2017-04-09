@@ -2,7 +2,7 @@ package tkv_project.client;
 
 class BlackjackController {
     
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public static final boolean VERBOSE_MESSAGE_DEBUG = false;
     
     public static final String CLIENT_VERSION = "0.14.4";

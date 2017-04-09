@@ -2,7 +2,7 @@ package tkv_project.server;
 
 final class ServerConstants {
     
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     public static final boolean VERBOSE_MESSAGE_DEBUG = false;
     
     public static final String SERVER_VERSION = "0.5.2";
