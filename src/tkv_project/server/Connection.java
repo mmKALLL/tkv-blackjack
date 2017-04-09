@@ -37,16 +37,19 @@ class Connection extends Thread {
             while (true) {
                 String clientMessage = in.readLine();
                 // TODO: Do things with serverController when client says stuff.
-                if (clientMessage.contains("name")) {
-                    serverController.setName(ID, clientMessage.split(":")[1]);
-                } else if (clientMessage.contains("hit")) {
-                    serverController.handleHit(ID);
-                    out.println(serverController.getSendableGameState());
-                } else if (clientMessage.contains("stand")) {
-                    serverController.handleStand(ID);
-                    out.println(serverController.getSendableGameState());
-                } else if (clientMessage.contains("quit")) {
-                    break;
+                if (clientMessage != null) {
+                    if (clientMessage.contains("name")) {
+                        serverController.setName(ID, clientMessage.split(":")[1]);
+                    } else if (clientMessage.contains("hit")) {
+                        serverController.handleHit(ID);
+                        out.println(serverController.getSendableGameState());
+                    } else if (clientMessage.contains("stand")) {
+                        serverController.handleStand(ID);
+                        out.println(serverController.getSendableGameState());
+                    } else if (clientMessage.contains("quit")) {
+                        out.println("Server says: Bye-bye!");
+                        break;
+                    }
                 }
             }
             
