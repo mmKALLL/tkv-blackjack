@@ -46,6 +46,7 @@ class NetworkManager extends Thread {
         // TODO: Send a message to server and get the game's status. Then call controller.initializeGameState().
         
         try {
+            out.println("update");
             while (true) {
                 String message = in.readLine();
                 if (message != null && !message.trim().isEmpty()) {

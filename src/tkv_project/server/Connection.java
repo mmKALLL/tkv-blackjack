@@ -15,6 +15,8 @@ class Connection extends Thread {
     private Socket socket;
     private ServerConstants serverConstants;
     private ServerController serverController;
+    private long startTime = System.currentTimeMillis();
+    private long updates = 0;
     
     public Connection(Socket socket, long initialID, ServerConstants servConsts, ServerController servCtrl) {
         this.socket = socket;
@@ -36,22 +38,46 @@ class Connection extends Thread {
             // Get messages from the client until they disconnect
             while (true) {
                 String clientMessage = in.readLine();
-                System.out.println(clientMessage);
+                if (serverConstants.VERBOSE_MESSAGE_DEBUG) {
+                    System.out.println(clientMessage);
+                }
                 // TODO: Do things with serverController when client says stuff.
                 if (clientMessage != null) {
+                    System.out.println("bbb");
+                    
                     if (clientMessage.contains("name")) {
-                        serverController.setName(ID, clientMessage.split(":")[1]);
+                        serverController.addPlayer(ID, clientMessage.split(":")[1]);
+                        
                     } else if (clientMessage.contains("hit")) {
                         serverController.handleHit(ID);
                         out.println(serverController.getSendableGameState());
+                        
                     } else if (clientMessage.contains("stand")) {
                         serverController.handleStand(ID);
                         out.println(serverController.getSendableGameState());
+                        
+                    } else if (clientMessage.contains("update")) {
+                        System.out.println("aaa");
+                        if (this.updates / (System.currentTimeMillis() - startTime) >= serverConstants.MAX_UPDATES_PER_SECOND) {
+                            if (serverConstants.DEBUG) {
+                                System.out.println("Client asked for too many updates, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
+                            }
+                            out.println("too many updates requested from server");
+                            this.close();
+                        } else {
+                            if (serverConstants.VERBOSE_MESSAGE_DEBUG) {
+                                System.out.println("Sending update for client, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
+                                System.out.println("update msg: " + serverController.getSendableGameState());
+                            }
+                            out.println(serverController.getSendableGameState());
+                        }
+                        this.updates++; // rudimentary system for managing overloading clients
+                        
                     } else if (clientMessage.contains("quit")) {
                         out.println("Server says: Bye-bye!");
                         break;
                     }
-                }
+                } else System.out.println("ccc");
                 // TODO: Sleep and handle InterruptedException; otherwise this loop can eat processors
             }
             
@@ -62,17 +88,21 @@ class Connection extends Thread {
             }
             System.out.println("Error with client, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
         } finally {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                if (this.serverConstants.DEBUG) {
-                    System.out.println();
-                    e.printStackTrace();
-                }
-                System.out.println("!!! Error when closing socket on Connection with ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + "!!!");
-            }
-            System.out.println("Connection to client closed, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
+            this.close();
         }
+    }
+    
+    private void close() {
+        try {
+            socket.close();
+        } catch (IOException e) {
+            if (this.serverConstants.DEBUG) {
+                System.out.println();
+                e.printStackTrace();
+            }
+            System.out.println("!!! Error when closing socket on Connection with ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + "!!!");
+        }
+        System.out.println("Connection to client closed, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
     }
     
     public void setID(long newID) {

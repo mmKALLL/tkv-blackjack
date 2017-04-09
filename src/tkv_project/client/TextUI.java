@@ -72,6 +72,8 @@ class TextUI extends UserInterface {
         
         System.out.println("Connected!\n\n");
         
+        this.update();
+        
     }
 
     private static String separateCards(String cards) {

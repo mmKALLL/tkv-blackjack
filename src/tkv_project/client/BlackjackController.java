@@ -31,7 +31,8 @@ class BlackjackController {
     void updateGameState(String[][] newGameState) {
         gameState = newGameState;
         gameStateBuilt = true;
-        UI.update();
+        if (playerName != "")
+            UI.update();
     }
     
     protected void handleServerConnectionFailure(Exception e) {
