@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.net.SocketException;
 
 /*
     NetworkManager handles the connectivity of a single client to the game server,
@@ -32,6 +33,7 @@ class NetworkManager extends Thread {
                 serverConnection.close();
             } catch (IOException e) {
                 System.out.println("!!! Error when closing serverConnection in NetworkManager!!!");
+                controller.handleServerConnectionFailure(e);
             }
         }
     }

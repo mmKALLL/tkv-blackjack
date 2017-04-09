@@ -36,11 +36,19 @@ class ConnectionManager extends Thread {
                 }
             }
         } catch (IOException e) {
+            if (this.serverConstants.DEBUG) {
+                System.out.println();
+                e.printStackTrace();
+            }
             System.out.println("Error occurred when accepting a new client to the server socket.");
         } finally {
             try {
                 servSock.close();
             } catch (IOException e) {
+                if (this.serverConstants.DEBUG) {
+                    System.out.println();
+                    e.printStackTrace();
+                }
                 System.out.println("!!! Error when closing servSock in ConnectionManager!!!");
             }
             System.out.println("Server ConnectionManager closed.");
@@ -53,7 +61,7 @@ class ConnectionManager extends Thread {
     
     protected long generateID() {
         UUID id = UUID.randomUUID();
-        return id.getMostSignificantBits();
+        return Math.abs(id.getMostSignificantBits());
     }
     
     protected void setServerController(ServerController newServerController) {

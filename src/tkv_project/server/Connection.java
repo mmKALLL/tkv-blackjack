@@ -54,11 +54,19 @@ class Connection extends Thread {
             }
             
         } catch (IOException e) {
+            if (this.serverConstants.DEBUG) {
+                System.out.println();
+                e.printStackTrace();
+            }
             System.out.println("Error with client, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
         } finally {
             try {
                 socket.close();
             } catch (IOException e) {
+                if (this.serverConstants.DEBUG) {
+                    System.out.println();
+                    e.printStackTrace();
+                }
                 System.out.println("!!! Error when closing socket on Connection with ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + "!!!");
             }
             System.out.println("Connection to client closed, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");

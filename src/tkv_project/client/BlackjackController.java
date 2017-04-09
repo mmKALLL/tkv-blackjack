@@ -2,7 +2,7 @@ package tkv_project.client;
 
 class BlackjackController {
     
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
     
     public static final String CLIENT_VERSION = "0.6.0";
     public static final int GAMESTATE_INIT_TIMEOUT = 10000; // milliseconds
