@@ -91,8 +91,7 @@ class BlackjackController {
                 }
                 return i - 1;
             }
-        }
-        if (DEBUG) {
+        } else if (DEBUG) {
             System.out.println("!!! BlackjackController.getNumOfPlayers called out of order !!!");
         }
         return 0;
