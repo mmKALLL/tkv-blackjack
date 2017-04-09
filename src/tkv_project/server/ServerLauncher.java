@@ -13,6 +13,10 @@ public class ServerLauncher {
         
         serverController.setConnectionManager(connectionManager);
         connectionManager.setServerController(serverController);
+        
+        connectionManager.start();
+        
+        serverController.initialize();
     }
         
     

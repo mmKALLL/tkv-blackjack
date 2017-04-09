@@ -20,40 +20,47 @@ class ServerController {
     public ServerController(ServerConstants servConsts) {
         // TODO: initialize gameState and any necessary related stuff
         gameState = new String[serverConstants.MAX_PLAYERS_PER_GAME][4];
-
-        deck = new ArrayList<String>();
-        
-        for (int i = 0; i < servConsts.DEFAULT_DECKS_IN_GAME; i++) {
-            for (char suit : servConsts.cardSuits) {
-                for (char value : servConsts.cardValues) {
-                    deck.add(value + "" + suit);
-                }
-            }
-        }
-
-        // a full deck for when the cards run low and the deck needs to be shuffled 
-        List<String> fullDeck = deck;
-
-        // Dealer's info
-        gameState[0][0] = "0";
-        gameState[0][1] = "Dealer";
-        
-        int playerCount = 1;
-        for (Connection player : connectionManager.getConnections()) {
-            gameState[playerCount][0] = new Long(player.getID()).toString();;
-            playerCount++;
-        }
-
-        // TODO: A lot of things
     }
 
     protected void setConnectionManager(ConnectionManager manager) {
         this.connectionManager = manager;
     }
     
+    protected void initialize() {
+        
+        deck = new ArrayList<String>();
+        
+        for (int i = 0; i < this.serverConstants.DEFAULT_DECKS_IN_GAME; i++) {
+            for (char suit : this.serverConstants.cardSuits) {
+                for (char value : this.serverConstants.cardValues) {
+                    deck.add(value + "" + suit);
+                }
+            }
+        }
+        
+        // a full deck for when the cards run low and the deck needs to be shuffled
+        List<String> fullDeck = deck;
+        
+        // Dealer's info
+        gameState[0][0] = "0";
+        gameState[0][1] = "Dealer";
+        
+        int playerCount = 1;
+        for (Connection player : connectionManager.getConnections()) {
+            if (player != null) {
+                gameState[playerCount][0] = Long.toString(player.getID());
+                playerCount++;
+            } else {
+                break; // sorry
+            }
+        }
+        
+        // TODO: A lot of things
+    }
+    
     protected void setName(long id, String name) {
         for (String[] player : gameState) {
-            if (player[0] == new Long(id).toString()) {
+            if (player[0] == Long.toString((id))) {
                 player[1] = name;
                 break;
             }
@@ -71,7 +78,7 @@ class ServerController {
         deck.remove(randomCard);
 
         for (String[] player : gameState) {
-            if (player[0] == new Long(id).toString()) {
+            if (player[0] == Long.toString(id)) {
                 player[2] += chosenCard;
 
                 int total = 0;
@@ -102,7 +109,7 @@ class ServerController {
     // Adds a dot '.' to the end of the player's cards to indicate that he/she is done for the round.
     protected void handleStand(long id) {
         for (String[] player : gameState) {
-            if (player[0] == new Long(id).toString()) {
+            if (player[0] == Long.toString(id)) {
                 player[2] += ".";
                 break;
             }

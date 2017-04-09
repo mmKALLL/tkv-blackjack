@@ -28,7 +28,7 @@ class ConnectionManager extends Thread {
             this.servSock = new ServerSocket(serverConstants.DEFAULT_PORT);
             while (true) {
                 if (currentConnections < this.serverConstants.MAX_CONNECTIONS) {
-                    connections[currentConnections] = new Connection(this.servSock.accept(), generateID(), this.serverConstants);
+                    connections[currentConnections] = new Connection(this.servSock.accept(), generateID(), this.serverConstants, this.serverController);
                     connections[currentConnections].start();
                     this.currentConnections++;
                 } else {
@@ -46,13 +46,6 @@ class ConnectionManager extends Thread {
             System.out.println("Server ConnectionManager closed.");
         }
     }
-        
-    protected void addConnection() {
-        // TODO: Increase currentConnections count, generate ID, add a new Connection to the connections array.
-        connections[currentConnections] = new Connection(this.servSock.accept(), generateID(), this.serverConstants);
-        connections[currentConnections].start();
-        this.currentConnections++;
-    }
     
     protected Connection[] getConnections() {
         return this.connections;
@@ -65,67 +58,6 @@ class ConnectionManager extends Thread {
     
     protected void setServerController(ServerController newServerController) {
         this.serverController = newServerController;
-    }
-    
-    // A wrapper for a socket connecting a player, with information about their game's state.
-    private class Connection extends Thread {
-        private long ID;
-        private Socket socket;
-        private ServerConstants serverConstants;
-        
-        public Connection(Socket socket, long initialID, ServerConstants servConsts) {
-            this.socket = socket;
-            this.ID = initialID;
-            this.serverConstants = servConsts;
-        }
-        
-        public void run() {
-            try {
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                
-                System.out.println("Client connected, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
-                out.println("Welcome to the tkv-blackjack game server, version " + this.serverConstants.SERVER_VERSION + "!");
-                
-                // TODO: Try to add the player to the current game if it's not full.
-                
-                // Get messages from the client until they disconnect
-                while (true) {
-                    String clientMessage = in.readLine();
-                    // TODO: Do things with serverController when client says stuff.
-                    if (clientMessage.contains("name")) {
-                        serverController.setName(ID, clientMessage.split(":")[1]);
-                    } else if (clientMessage.contains("hit")) {
-                        serverController.handleHit(ID);
-                        out.println(serverController.getSendableGameState());
-                    } else if (clientMessage.contains("stand")) {
-                        serverController.handleStand(ID);
-                        out.println(serverController.getSendableGameState());
-                    } else if (clientMessage.contains("quit")) {
-                        break;
-                    }
-                }
-                
-            } catch (IOException e) {
-                System.out.println("Error with client, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
-            } finally {
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    System.out.println("!!! Error when closing socket on Connection with ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + "!!!");
-                }
-                System.out.println("Connection to client closed, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
-            }
-        }
-        
-        public void setID(long newID) {
-            this.ID = newID;
-        }
-        
-        public long getID() {
-            return this.ID;
-        }
-        
     }
 
 }
