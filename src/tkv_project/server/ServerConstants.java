@@ -5,7 +5,7 @@ final class ServerConstants {
     public static final boolean DEBUG = true;
     public static final boolean VERBOSE_MESSAGE_DEBUG = false;
     
-    public static final String SERVER_VERSION = "0.5.1";
+    public static final String SERVER_VERSION = "0.5.2";
     public static final String SERVER_NAME = "test server";
     public static final int DEFAULT_PORT = 47855;
     

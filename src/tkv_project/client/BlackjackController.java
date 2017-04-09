@@ -5,7 +5,7 @@ class BlackjackController {
     public static final boolean DEBUG = true;
     public static final boolean VERBOSE_MESSAGE_DEBUG = false;
     
-    public static final String CLIENT_VERSION = "0.14.2";
+    public static final String CLIENT_VERSION = "0.14.4";
     public static final int GAMESTATE_INIT_TIMEOUT = 10000; // milliseconds
     public static final int NETWORK_UPDATE_INTERVAL = 2000; // milliseconds
     public static final String DEFAULT_HOSTNAME = "localhost";
