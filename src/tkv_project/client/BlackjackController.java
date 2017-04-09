@@ -5,9 +5,9 @@ class BlackjackController {
     public static final boolean DEBUG = true;
     public static final boolean VERBOSE_MESSAGE_DEBUG = false;
     
-    public static final String CLIENT_VERSION = "0.10.2";
+    public static final String CLIENT_VERSION = "0.14.2";
     public static final int GAMESTATE_INIT_TIMEOUT = 10000; // milliseconds
-    public static final int NETWORK_UPDATE_INTERVAL = 800; // milliseconds
+    public static final int NETWORK_UPDATE_INTERVAL = 2000; // milliseconds
     public static final String DEFAULT_HOSTNAME = "localhost";
     public static final String DEFAULT_PORT = "47855";
     
@@ -54,7 +54,7 @@ class BlackjackController {
 
     protected void setName(String newName) {
         this.playerName = newName;
-    	networkManager.sendMessage("name:" + message);
+    	networkManager.sendMessage("name:" + newName);
     }
     
     // A non-separated string where, for each card, there is a card number/symbol followed by suit symbol.

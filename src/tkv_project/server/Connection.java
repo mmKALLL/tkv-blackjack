@@ -32,7 +32,7 @@ class Connection extends Thread {
             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
             
             System.out.println("Client connected, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
-            out.println("Welcome to the tkv-blackjack game server, version " + this.serverConstants.SERVER_VERSION + "!");
+            out.println("Welcome to the tkv-blackjack server called " + this.serverConstants.SERVER_NAME + ", version " + this.serverConstants.SERVER_VERSION + "!");
             
             
             // Get messages from the client until they disconnect
@@ -78,8 +78,8 @@ class Connection extends Thread {
                         }
                         
                     } else if (clientMessage.contains("quit")) {
-                        out.println("Server says: Bye-bye!");
-                        break;
+                        out.println("Server says bye-bye! Thanks for playing.");
+                        this.close();
                     }
                 }
                 // TODO: Sleep and handle InterruptedException; otherwise this loop can eat processors
