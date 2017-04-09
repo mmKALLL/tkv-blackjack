@@ -52,7 +52,8 @@ class BlackjackController {
         networkManager.sendMessage(playerID + " stand");
     }
 
-    protected void setName(String message) {
+    protected void setName(String newName) {
+        this.playerName = newName;
     	networkManager.sendMessage("name:" + message);
     }
     

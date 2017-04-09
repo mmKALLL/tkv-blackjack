@@ -52,6 +52,9 @@ class NetworkManager extends Thread {
                     if (message.startsWith("!!!gsdata!!!")) {
                         String[][] newGameState = parseGameState(message.substring(12));
                         controller.updateGameState(newGameState);
+                    } else {
+                        // TODO: Pass this to controller, which handles calling the relevant UI stuff
+                        System.out.println("Message from server: " + message);
                     }
                 } else {
                     System.out.println("Reading message failed at NetworkManager!");

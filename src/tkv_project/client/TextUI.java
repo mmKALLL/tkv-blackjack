@@ -107,6 +107,7 @@ class TextUI extends UserInterface {
                     System.out.println("Name not valid. The name must contain at least three characters and at most 22 characters.");
                 }
             }
+            System.out.print("\n\n");
         }
 
         // Print the dealer's name and cards

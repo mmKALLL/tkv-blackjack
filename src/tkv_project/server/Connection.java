@@ -52,6 +52,7 @@ class Connection extends Thread {
                         } else {
                             System.out.println("Client sent multiple name messages; ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
                         }
+                        out.println(serverController.getSendableGameState());
                         
                     } else if (clientMessage.contains("hit")) {
                         serverController.handleHit(ID);
