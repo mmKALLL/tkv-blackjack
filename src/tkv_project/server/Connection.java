@@ -56,7 +56,8 @@ class Connection extends Thread {
                         out.println(serverController.getSendableGameState());
                         
                     } else if (clientMessage.contains("update")) {
-                        if (this.updates / (System.currentTimeMillis() - startTime) >= serverConstants.MAX_UPDATES_PER_SECOND) {
+                        this.updates++; // rudimentary system for managing overloading clients
+                        if (this.updates / (1 + (System.currentTimeMillis() + 1 - startTime) / 1000) >= serverConstants.MAX_UPDATES_PER_SECOND) {
                             if (serverConstants.DEBUG) {
                                 System.out.println("Client asked for too many updates, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
                             }
@@ -65,11 +66,9 @@ class Connection extends Thread {
                         } else {
                             if (serverConstants.VERBOSE_MESSAGE_DEBUG) {
                                 System.out.println("Sending update for client, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
-                                System.out.println("\tupdate msg: " + serverController.getSendableGameState());
                             }
                             out.println(serverController.getSendableGameState());
                         }
-                        this.updates++; // rudimentary system for managing overloading clients
                         
                     } else if (clientMessage.contains("quit")) {
                         out.println("Server says: Bye-bye!");
@@ -100,7 +99,7 @@ class Connection extends Thread {
             }
             System.out.println("!!! Error when closing socket on Connection with ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + "!!!");
         }
-        System.out.println("Connection to client closed, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
+        System.out.println("Connection to client closed, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".\n\n");
     }
     
     public void setID(long newID) {

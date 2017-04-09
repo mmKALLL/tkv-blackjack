@@ -56,6 +56,7 @@ class NetworkManager extends Thread {
                     }
                 } else {
                     System.out.println("Reading message failed at NetworkManager!");
+                    throw new IOException("Server returned a stream of \\n");
                 }
                 // TODO: Sleep and handle InterruptedException; otherwise this loop can eat processors
             }
@@ -72,7 +73,9 @@ class NetworkManager extends Thread {
     }
 
     private String[][] parseGameState(String message) {
-        System.out.println(message);
+        if (this.controller.DEBUG) {
+            System.out.println(message);
+        }
     	String[] messageInfo = message.split("#");
     	int numberOfPlayers = messageInfo.length;
     	String[][] newGameState = new String[numberOfPlayers][4];

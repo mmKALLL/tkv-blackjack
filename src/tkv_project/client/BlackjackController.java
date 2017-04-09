@@ -2,9 +2,9 @@ package tkv_project.client;
 
 class BlackjackController {
     
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     
-    public static final String CLIENT_VERSION = "0.8.6";
+    public static final String CLIENT_VERSION = "0.8.8.3";
     public static final int GAMESTATE_INIT_TIMEOUT = 10000; // milliseconds
     public static final String DEFAULT_HOSTNAME = "localhost";
     public static final String DEFAULT_PORT = "47855";
