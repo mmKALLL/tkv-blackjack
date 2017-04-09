@@ -36,6 +36,7 @@ class Connection extends Thread {
             // Get messages from the client until they disconnect
             while (true) {
                 String clientMessage = in.readLine();
+                System.out.println(clientMessage);
                 // TODO: Do things with serverController when client says stuff.
                 if (clientMessage != null) {
                     if (clientMessage.contains("name")) {
@@ -51,6 +52,7 @@ class Connection extends Thread {
                         break;
                     }
                 }
+                // TODO: Sleep and handle InterruptedException; otherwise this eats processors
             }
             
         } catch (IOException e) {

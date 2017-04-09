@@ -28,12 +28,11 @@ class NetworkManager extends Thread {
             out = new PrintWriter(serverConnection.getOutputStream(), true);
         } catch (IOException e) {
             controller.handleServerConnectionFailure(e);
-        } finally {
             try {
                 serverConnection.close();
-            } catch (IOException e) {
+            } catch (IOException e2) {
                 System.out.println("!!! Error when closing serverConnection in NetworkManager!!!");
-                controller.handleServerConnectionFailure(e);
+                controller.handleServerConnectionFailure(e2);
             }
         }
     }
@@ -51,6 +50,7 @@ class NetworkManager extends Thread {
                 String message = in.readLine();
                 String[][] newGameState = parseMessage(message);
                 controller.updateGameState(newGameState);
+                // TODO: Sleep and handle InterruptedException; otherwise this can eat processors
             }
         } catch (IOException e) {
             controller.handleServerConnectionFailure(e);

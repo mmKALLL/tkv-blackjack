@@ -36,8 +36,8 @@ public class ClientLauncher {
 		}
 		
 		controller.setNetworkManager(networkManager);
-		UI.startGame();
 		networkManager.start(); // starts networkManager.run() in a separate thread
+		UI.startGame();
 		
 	}
 	
