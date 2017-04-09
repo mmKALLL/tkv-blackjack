@@ -4,7 +4,7 @@ import java.net.InetSocketAddress;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class Launcher {
+public class ClientLauncher {
 	
 	private static UserInterface UI;
 	private static BlackjackController controller;

@@ -36,33 +36,30 @@ class NetworkManager extends Thread {
         }
     }
     
-    protected void receiveMessage() {
-        try {
-        	while (true) {
-	        	String message = in.readLine();
-	        	String[][] newGameState = parseMessage(message);
-	        	controller.updateGameState(newGameState);
-        	}
-        } catch (IOException e) {
-        	controller.handleServerConnectionFailure(e);
-    	} finally {
-            try {
-                serverConnection.close();
-            } catch (IOException e) {
-                System.out.println("!!! Error when closing serverConnection in NetworkManager!!!");
-            }
-        }
-    }
-    
     protected void sendMessage(String msg) {
         /* send msg over the socket */
         this.out.println(msg);
     }
     
     public void run() {
-        // Wait for messages, etc...
-        
         // TODO: Send a message to server and get the game's status. Then call controller.initializeGameState().
+        
+        try {
+            while (true) {
+                String message = in.readLine();
+                String[][] newGameState = parseMessage(message);
+                controller.updateGameState(newGameState);
+            }
+        } catch (IOException e) {
+            controller.handleServerConnectionFailure(e);
+        } finally {
+            try {
+                serverConnection.close();
+            } catch (IOException e) {
+                System.out.println("!!! Error when closing serverConnection in NetworkManager!!!");
+            }
+        }
+        
     }
 
     private String[][] parseMessage(String message) {

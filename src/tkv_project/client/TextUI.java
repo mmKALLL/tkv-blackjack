@@ -65,12 +65,12 @@ class TextUI extends UserInterface {
             System.out.print(".");
         }
         
-        System.out.println("Connected!\n\n");
-        
         if (!controller.gameStateBuilt && (System.currentTimeMillis() - startTime) > controller.GAMESTATE_INIT_TIMEOUT) {
             System.out.println("\nThe game server did not respond. Please try again later, or join to another server. The program will now exit.");
             System.exit(0);
         }
+        
+        System.out.println("Connected!\n\n");
         
     }
 
