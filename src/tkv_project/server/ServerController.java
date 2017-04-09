@@ -23,7 +23,7 @@ class ServerController {
     
     public ServerController(ServerConstants servConsts) {
         // TODO: initialize gameState and any necessary related stuff
-        gameState = new String[serverConstants.MAX_PLAYERS_PER_GAME + 1][4];
+        gameState = new String[serverConstants.DEFAULT_PLAYERS_PER_GAME + 1][4];
     }
 
     protected void setConnectionManager(ConnectionManager manager) {
@@ -65,13 +65,17 @@ class ServerController {
     
     // 0 on success; some basic checks to combat most race conditions
     // negative value signals that gsUnderEdit is left true due to an error state
-    // positive value means to try again soon
+    // positive value means to try again soon (appropriate after around x ms where x is the return value)
     protected int addPlayer(long id, String name) {
+        if (playerCount >= gameState.length) {
+            
+            return 5000;
+        }
         if (!gsUnderEdit) {
             gsUnderEdit = true;
             
             int oldPlayerCount = playerCount;
-            if (gameState[playerCount] == null) {
+            if (gameState[playerCount][0] == null) {
                 gameState[playerCount][0] = Long.toString(id);
                 gameState[playerCount][1] = name;
                 gameState[playerCount][2] = "";

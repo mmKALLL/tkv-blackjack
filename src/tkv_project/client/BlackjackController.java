@@ -3,9 +3,11 @@ package tkv_project.client;
 class BlackjackController {
     
     public static final boolean DEBUG = true;
+    public static final boolean VERBOSE_MESSAGE_DEBUG = false;
     
-    public static final String CLIENT_VERSION = "0.8.8.3";
+    public static final String CLIENT_VERSION = "0.10.2";
     public static final int GAMESTATE_INIT_TIMEOUT = 10000; // milliseconds
+    public static final int NETWORK_UPDATE_INTERVAL = 800; // milliseconds
     public static final String DEFAULT_HOSTNAME = "localhost";
     public static final String DEFAULT_PORT = "47855";
     
@@ -58,7 +60,7 @@ class BlackjackController {
     // e.g. "", "6s", "Jh", "As", "5s5c", "9cQhAs5d", "9c9c9c9c9c9c9c".
     protected String getThisPlayerCards() {
         for(String[] player : gameState) {
-            if(Integer.parseInt(player[0]) == playerID) {
+            if(Long.parseLong(player[0]) == playerID) {
                 return player[2];
             }
         }
@@ -75,7 +77,7 @@ class BlackjackController {
     
     protected int getThisPlayerMoney() {
         for(String[] player : gameState) {
-            if(Integer.parseInt(player[0]) == playerID) {
+            if(Long.parseLong(player[0]) == playerID) {
                 return Integer.parseInt(player[3]);
             }
         }
@@ -86,7 +88,7 @@ class BlackjackController {
         if (this.gameStateBuilt) {
             if (this.gameState.length >= 2) {
                 int i = 1;
-                while(gameState[i][0] != null && Integer.parseInt(gameState[i][0]) != 0 && i < gameState.length) {
+                while(i < gameState.length && gameState[i][0] != null && Long.parseLong(gameState[i][0]) != 0) {
                     i++;
                 }
                 return i - 1;

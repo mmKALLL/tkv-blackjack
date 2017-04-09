@@ -17,6 +17,7 @@ class Connection extends Thread {
     private ServerController serverController;
     private long startTime = System.currentTimeMillis();
     private long updates = 0;
+    private boolean nameRegistered = false;
     
     public Connection(Socket socket, long initialID, ServerConstants servConsts, ServerController servCtrl) {
         this.socket = socket;
@@ -33,7 +34,6 @@ class Connection extends Thread {
             System.out.println("Client connected, ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
             out.println("Welcome to the tkv-blackjack game server, version " + this.serverConstants.SERVER_VERSION + "!");
             
-            // TODO: Try to add the player to the current game if it's not full.
             
             // Get messages from the client until they disconnect
             while (true) {
@@ -41,11 +41,17 @@ class Connection extends Thread {
                 if (serverConstants.VERBOSE_MESSAGE_DEBUG) {
                     System.out.println("\t" + clientMessage);
                 }
-                // TODO: Do things with serverController when client says stuff.
                 if (clientMessage != null) {
                     
                     if (clientMessage.contains("name")) {
-                        serverController.addPlayer(ID, clientMessage.split(":")[1]);
+                        if (!nameRegistered) {
+                            // Try to add the player to the current game
+                            int addState = serverController.addPlayer(ID, clientMessage.split(":")[1]);
+                            nameRegistered = true;
+                            // FIXME: Return values not used
+                        } else {
+                            System.out.println("Client sent multiple name messages; ID: " + this.ID + ", address: " + socket.getRemoteSocketAddress().toString() + ".");
+                        }
                         
                     } else if (clientMessage.contains("hit")) {
                         serverController.handleHit(ID);

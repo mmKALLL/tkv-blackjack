@@ -43,11 +43,10 @@ class NetworkManager extends Thread {
     }
     
     public void run() {
-        // TODO: Send a message to server and get the game's status. Then call controller.initializeGameState().
-        
+        // Loop and get updates for gameState from the server.
         try {
-            out.println("update");
             while (true) {
+                out.println("update");
                 String message = in.readLine();
                 if (message != null && !message.trim().isEmpty()) {
                     if (message.startsWith("!!!gsdata!!!")) {
@@ -57,6 +56,14 @@ class NetworkManager extends Thread {
                 } else {
                     System.out.println("Reading message failed at NetworkManager!");
                     throw new IOException("Server returned a stream of \\n");
+                }
+                try {
+                    Thread.sleep(controller.NETWORK_UPDATE_INTERVAL);
+                } catch(InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    if (controller.DEBUG) {
+                        System.out.println("DEBUG: NetworkManager update thread interruped.");
+                    }
                 }
                 // TODO: Sleep and handle InterruptedException; otherwise this loop can eat processors
             }
@@ -73,7 +80,7 @@ class NetworkManager extends Thread {
     }
 
     private String[][] parseGameState(String message) {
-        if (this.controller.DEBUG) {
+        if (this.controller.VERBOSE_MESSAGE_DEBUG) {
             System.out.println(message);
         }
     	String[] messageInfo = message.split("#");
