@@ -52,7 +52,7 @@ class Connection extends Thread {
                         break;
                     }
                 }
-                // TODO: Sleep and handle InterruptedException; otherwise this eats processors
+                // TODO: Sleep and handle InterruptedException; otherwise this loop can eat processors
             }
             
         } catch (IOException e) {

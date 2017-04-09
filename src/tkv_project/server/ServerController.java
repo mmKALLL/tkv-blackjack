@@ -119,7 +119,7 @@ class ServerController {
     // Returns the gameState in a one-line-string in the format of:
     // firstPlayersValue1 + ! + firstPlayersValue2 + ! + firstPlayersValue3 + ? + secondPlayersValue1 + ! + secondPlayersValue2 ...
     protected String getSendableGameState() {
-        String gs = "";
+        String gs = "!!!gsdata!!!";
         for (String[] player : gameState) {
             for (int i = 0; i < 4; i++) {               // 4 since a player has currently 4 slots in use (ID, name, cards and money)
                 gs += player[i];

@@ -3,7 +3,7 @@ package tkv_project.server;
 final class ServerConstants {
     
     public static final boolean DEBUG = true;
-    public static final String SERVER_VERSION = "0.4.2";
+    public static final String SERVER_VERSION = "0.4.7";
     public static final int DEFAULT_PORT = 47855;
     
     public static final int MAX_CONNECTIONS = 1000;

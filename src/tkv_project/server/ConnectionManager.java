@@ -24,8 +24,10 @@ class ConnectionManager extends Thread {
     
     // Start listening to incoming connections in a new thread.
     public void run() {
+        System.out.println("Server started, creating server socket...");
         try {
             this.servSock = new ServerSocket(serverConstants.DEFAULT_PORT);
+            System.out.println("Socket created, listening to connections...");
             while (true) {
                 if (currentConnections < this.serverConstants.MAX_CONNECTIONS) {
                     connections[currentConnections] = new Connection(this.servSock.accept(), generateID(), this.serverConstants, this.serverController);

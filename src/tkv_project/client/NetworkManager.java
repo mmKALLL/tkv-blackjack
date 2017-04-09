@@ -48,9 +48,15 @@ class NetworkManager extends Thread {
         try {
             while (true) {
                 String message = in.readLine();
-                String[][] newGameState = parseMessage(message);
-                controller.updateGameState(newGameState);
-                // TODO: Sleep and handle InterruptedException; otherwise this can eat processors
+                if (message != null && !message.trim().isEmpty()) {
+                    if (message.startsWith("!!!gsdata!!!")) {
+                        String[][] newGameState = parseGameState(message.substring(12));
+                        controller.updateGameState(newGameState);
+                    }
+                } else {
+                    System.out.println("Reading message failed at NetworkManager!");
+                }
+                // TODO: Sleep and handle InterruptedException; otherwise this loop can eat processors
             }
         } catch (IOException e) {
             controller.handleServerConnectionFailure(e);
@@ -64,8 +70,8 @@ class NetworkManager extends Thread {
         
     }
 
-    private String[][] parseMessage(String message) {
-
+    private String[][] parseGameState(String message) {
+        System.out.println(message);
     	String[] messageInfo = message.split("#");
     	int numberOfPlayers = messageInfo.length;
     	String[][] newGameState = new String[numberOfPlayers][4];
